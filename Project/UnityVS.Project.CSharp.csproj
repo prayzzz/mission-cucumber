@@ -53,7 +53,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\TestScript.cs" />
+    <Compile Include="Assets\Scripts\BaseClasses\BaseUnit.cs" />
     <Compile Include="Common\GameObjectMessenger.cs" />
     <Compile Include="Common\WeakAction.cs" />
     <Compile Include="Common\WeakActionGeneric.cs" />
@@ -61,7 +61,6 @@
     <None Include="Assets\Resources\Images\platzhalter.txt" />
     <None Include="Assets\Resources\Models\platzhalter.txt" />
     <None Include="Assets\Resources\Textures\platzhalter.txt" />
-    <None Include="Assets\Scripts\platzhalter.txt" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2013\UnityVS.CSharp.targets" />
