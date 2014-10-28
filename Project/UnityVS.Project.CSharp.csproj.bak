@@ -58,10 +58,8 @@
     <Compile Include="Assets\Scripts\Common\GameObjectMessenger.cs" />
     <Compile Include="Assets\Scripts\Common\WeakAction.cs" />
     <Compile Include="Assets\Scripts\Common\WeakActionGeneric.cs" />
+<<<<<<< HEAD
     <Compile Include="Assets\Scripts\Components\HealthComponent.cs" />
-    <Compile Include="Assets\Scripts\Messages\IsVisibleMessage.cs" />
-    <Compile Include="Assets\Scripts\Messages\ModifyUnitsInSightMessage.cs" />
-    <Compile Include="Assets\Scripts\Messages\UnitsInSightMessage.cs" />
     <Compile Include="Assets\Scripts\Messages\DamageTakenMessage.cs" />
     <Compile Include="Assets\Scripts\Messages\HealingReceivedMessage.cs" />
     <Compile Include="Assets\Scripts\Messages\ModifyIncomingDamageMessage.cs" />
@@ -69,6 +67,12 @@
     <Compile Include="Assets\Scripts\Messages\ReceiveHealingMessage.cs" />
     <Compile Include="Assets\Scripts\Messages\TakeDamageMessage.cs" />
     <Compile Include="Assets\Scripts\Messages\UnitDiedMessage.cs" />
+=======
+    <Compile Include="Assets\Scripts\Components\SightComponent.cs" />
+    <Compile Include="Assets\Scripts\Messages\IsVisibleMessage.cs" />
+    <Compile Include="Assets\Scripts\Messages\ModifyUnitsInSightMessage.cs" />
+    <Compile Include="Assets\Scripts\Messages\UnitsInSightMessage.cs" />
+>>>>>>> origin/master
     <None Include="Assets\Prefabs\platzhalter.txt" />
     <None Include="Assets\Resources\Images\platzhalter.txt" />
     <None Include="Assets\Resources\Models\platzhalter.txt" />
