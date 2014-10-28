@@ -7,7 +7,7 @@ namespace Assets.Scripts.BaseClasses
     {
         protected BaseUnit Unit { get; private set; }
 
-        public BaseComponent()
+        public void Start()
         {
             this.Unit = this.GetComponent<BaseUnit>();
         }
