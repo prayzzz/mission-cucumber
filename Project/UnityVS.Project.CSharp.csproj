@@ -58,6 +58,14 @@
     <Compile Include="Assets\Scripts\Common\GameObjectMessenger.cs" />
     <Compile Include="Assets\Scripts\Common\WeakAction.cs" />
     <Compile Include="Assets\Scripts\Common\WeakActionGeneric.cs" />
+    <Compile Include="Assets\Scripts\Components\HealthComponent.cs" />
+    <Compile Include="Assets\Scripts\Messages\DamageTakenMessage.cs" />
+    <Compile Include="Assets\Scripts\Messages\HealingReceivedMessage.cs" />
+    <Compile Include="Assets\Scripts\Messages\ModifyIncomingDamageMessage.cs" />
+    <Compile Include="Assets\Scripts\Messages\ModifyIncomingHealingMessage.cs" />
+    <Compile Include="Assets\Scripts\Messages\ReceiveHealingMessage.cs" />
+    <Compile Include="Assets\Scripts\Messages\TakeDamageMessage.cs" />
+    <Compile Include="Assets\Scripts\Messages\UnitDiedMessage.cs" />
     <None Include="Assets\Prefabs\platzhalter.txt" />
     <None Include="Assets\Resources\Images\platzhalter.txt" />
     <None Include="Assets\Resources\Models\platzhalter.txt" />
