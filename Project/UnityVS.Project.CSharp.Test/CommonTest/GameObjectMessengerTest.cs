@@ -1,6 +1,6 @@
 ﻿using System;
 
-using Common;
+using Assets.Scripts.Common;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

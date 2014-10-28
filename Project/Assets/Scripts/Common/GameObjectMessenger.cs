@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
-namespace Common
+namespace Assets.Scripts.Common
 {
     public class GameObjectMessenger
     {

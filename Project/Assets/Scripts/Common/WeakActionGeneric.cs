@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Common
+namespace Assets.Scripts.Common
 {
     internal class WeakAction<T> : WeakAction
     {

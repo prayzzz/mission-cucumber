@@ -1,4 +1,4 @@
-﻿using Common;
+﻿using Assets.Scripts.Common;
 
 using UnityEngine;
 
