@@ -12,6 +12,5 @@ namespace Assets.Scripts.Messages
         }
 
         public IEnumerable<BaseUnit> UnitsInSight { get; private set; }
-
     }
 }

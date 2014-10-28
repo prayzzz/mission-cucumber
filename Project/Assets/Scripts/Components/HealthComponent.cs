@@ -1,33 +1,34 @@
 ﻿using Assets.Scripts.BaseClasses;
 using Assets.Scripts.Messages;
+using UnityEngine;
 
 namespace Assets.Scripts.Components
 {
     public class HealthComponent : BaseComponent
     {
-        public HealthComponent(int totalHealth)
-        {
-            this.TotalHealth = totalHealth;
-            this.CurrentHealth = totalHealth;
+        public int TotalHealth;
 
-            this.RegisterEventHandler();
-        }
-
-        ~HealthComponent()
-        {
-            this.UnregisterEventHandler();
-        }
-
-        public int CurrentHealth { get; set; }
-
-        public int TotalHealth { get; set; }
-
+        public int CurrentHealth { get; private set; }
+        
         public bool IsDead
         {
             get
             {
                 return this.CurrentHealth <= 0;
             }
+        }
+
+        public void Awake()
+        {
+            this.CurrentHealth = this.TotalHealth;
+
+            this.RegisterEventHandler();
+        }
+
+        [ExecuteInEditMode]
+        public void OnValidate()
+        {
+            this.TotalHealth = this.TotalHealth <= 0 ? 1 : this.TotalHealth;
         }
 
         private void RegisterEventHandler()

@@ -2,11 +2,11 @@
 {
     public class IsVisibleMessage
     {
-        public bool IsVisble { get; set; }
-
         public IsVisibleMessage()
         {
             this.IsVisble = true;
         }
+
+        public bool IsVisble { get; set; }
     }
 }
