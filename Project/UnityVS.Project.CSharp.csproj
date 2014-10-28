@@ -58,6 +58,10 @@
     <Compile Include="Assets\Scripts\Common\GameObjectMessenger.cs" />
     <Compile Include="Assets\Scripts\Common\WeakAction.cs" />
     <Compile Include="Assets\Scripts\Common\WeakActionGeneric.cs" />
+    <Compile Include="Assets\Scripts\Components\SightComponent.cs" />
+    <Compile Include="Assets\Scripts\Messages\IsVisibleMessage.cs" />
+    <Compile Include="Assets\Scripts\Messages\ModifyUnitsInSightMessage.cs" />
+    <Compile Include="Assets\Scripts\Messages\UnitsInSightMessage.cs" />
     <None Include="Assets\Prefabs\platzhalter.txt" />
     <None Include="Assets\Resources\Images\platzhalter.txt" />
     <None Include="Assets\Resources\Models\platzhalter.txt" />
