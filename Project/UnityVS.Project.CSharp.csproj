@@ -49,6 +49,30 @@
     <Reference Include="UnityEngine.UI">
       <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
     </Reference>
+    <Reference Include="Fasterflect">
+      <HintPath>Assets\Plugins\Vexe\DLLs\Fasterflect\Fasterflect.dll</HintPath>
+    </Reference>
+    <Reference Include="FullSerializer">
+      <HintPath>Assets\Plugins\Vexe\DLLs\FullSerializer\FullSerializer.dll</HintPath>
+    </Reference>
+    <Reference Include="protobuf-net">
+      <HintPath>Assets\Plugins\Vexe\DLLs\protobuf-net\protobuf-net.dll</HintPath>
+    </Reference>
+    <Reference Include="RuntimeExtensions">
+      <HintPath>Assets\Plugins\Vexe\DLLs\Runtime\RuntimeExtensions\RuntimeExtensions.dll</HintPath>
+    </Reference>
+    <Reference Include="RuntimeHelpers">
+      <HintPath>Assets\Plugins\Vexe\DLLs\Runtime\RuntimeHelpers\RuntimeHelpers.dll</HintPath>
+    </Reference>
+    <Reference Include="Smooth">
+      <HintPath>Assets\Plugins\Vexe\DLLs\Smooth\Smooth.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="UnityVS.Project.CSharp.Plugins.csproj">
+      <Project>{928C1593-6802-452A-CDDC-5533A92F08F8}</Project>
+      <Name>UnityVS.Project.CSharp.Plugins</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\BaseClasses\BaseComponent.cs" />
@@ -68,6 +92,14 @@
     <Compile Include="Assets\Scripts\Messages\TakeDamageMessage.cs" />
     <Compile Include="Assets\Scripts\Messages\UnitDiedMessage.cs" />
     <Compile Include="Assets\Scripts\Messages\UnitsInSightMessage.cs" />
+    <None Include="Assets\Plugins\Editor\Vexe\DLLs\EditorExtensions\EditorExtensions.XML" />
+    <None Include="Assets\Plugins\Editor\Vexe\DLLs\EditorHelpers\EditorHelpers.XML" />
+    <None Include="Assets\Plugins\Vexe\DLLs\Fasterflect\Fasterflect.XML" />
+    <None Include="Assets\Plugins\Vexe\DLLs\FullSerializer\FullSerializer.XML" />
+    <None Include="Assets\Plugins\Vexe\DLLs\protobuf-net\protobuf-net.xml" />
+    <None Include="Assets\Plugins\Vexe\DLLs\Runtime\RuntimeExtensions\RuntimeExtensions.XML" />
+    <None Include="Assets\Plugins\Vexe\DLLs\Runtime\RuntimeHelpers\RuntimeHelpers.XML" />
+    <None Include="Assets\Plugins\Vexe\DLLs\Smooth\Smooth.XML" />
     <None Include="Assets\Prefabs\platzhalter.txt" />
     <None Include="Assets\Resources\Images\platzhalter.txt" />
     <None Include="Assets\Resources\Models\platzhalter.txt" />

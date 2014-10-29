@@ -13,8 +13,10 @@ namespace Assets.Scripts.Components
     {
         private HashSet<BaseUnit> unitsInSight;
 
-        public void Awake()
+        public override void Awake()
         {
+            base.Awake();
+
             this.unitsInSight = new HashSet<BaseUnit>();
         }
 

@@ -86,6 +86,7 @@ GameObject:
   - 135: {fileID: 547082438}
   - 23: {fileID: 547082437}
   - 54: {fileID: 547082441}
+  - 114: {fileID: 547082443}
   - 114: {fileID: 547082442}
   m_Layer: 0
   m_Name: Sphere
@@ -140,7 +141,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 547082436}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -.196160004, y: 0, z: -.0811360031}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -168,9 +169,42 @@ MonoBehaviour:
   m_GameObject: {fileID: 547082436}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 607e799492aabd3489861d7c734c3cd5, type: 3}
+  m_Script: {fileID: 11500000, guid: 6d4b5f765d8ab3a47a0c806f9b28a5ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dbg: 0
+  serializationData:
+    serializedObjects: []
+    serializedStrings:
+      keys:
+      - 'Property: System.Int32 TotalHealth'
+      values:
+      - 0
+  serializerType:
+    name: Vexe.Runtime.Serialization.Serializers.FullSerializer.fsFullSerializer,
+      Assembly-CSharp-firstpass, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  id: bfcf015e-4f01-4751-9432-b5cfb62afe2e
+--- !u!114 &547082443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 547082436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cae359e23d7e184196bcc049c0952ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dbg: 0
+  serializationData:
+    serializedObjects: []
+    serializedStrings:
+      keys: []
+      values: []
+  serializerType:
+    name: Vexe.Runtime.Serialization.Serializers.FullSerializer.fsFullSerializer,
+      Assembly-CSharp-firstpass, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  id: 822b93bf-3eb2-410a-9f62-f12df21771a4
 --- !u!1 &749730918
 GameObject:
   m_ObjectHideFlags: 0

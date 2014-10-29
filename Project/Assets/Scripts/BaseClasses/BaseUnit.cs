@@ -1,16 +1,16 @@
 ﻿using Assets.Scripts.Common;
 
-using UnityEngine;
+using Vexe.Runtime.Types;
 
 namespace Assets.Scripts.BaseClasses
 {
-    public class BaseUnit : MonoBehaviour
+    public class BaseUnit : BetterBehaviour
     {
-        public GameObjectMessenger Messenger { get; private set; }
-
         public BaseUnit()
         {
             this.Messenger = new GameObjectMessenger();
         }
+
+        public GameObjectMessenger Messenger { get; private set; }
     }
 }

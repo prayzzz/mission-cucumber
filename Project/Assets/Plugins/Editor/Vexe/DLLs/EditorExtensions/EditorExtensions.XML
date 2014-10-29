@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>EditorExtensions</name>
+    </assembly>
+    <members>
+        <member name="M:Vexe.Editor.Extensions.GOExtensions.UndoGetOrAddComponent``1(UnityEngine.GameObject)">
+            <summary>
+            Gets the component of the specific generic type
+            if not found, we add it and register an undo for it
+            at the end it gets returned
+            </summary>
+        </member>
+        <member name="M:Vexe.Editor.Extensions.SerializedPropertyExtensions.GetRefValue``1(UnityEditor.SerializedProperty)">
+            <summary>
+            Gets the property value by performing a safe cast
+            </summary>
+        </member>
+        <member name="M:Vexe.Editor.Extensions.SerializedPropertyExtensions.GetValue``1(UnityEditor.SerializedProperty)">
+            <summary>
+            Gets the property value by performing an un-safe cast
+            </summary>
+        </member>
+        <member name="M:Vexe.Editor.Extensions.UnityEngineObjectExtensions.SetDirty(UnityEngine.Object)">
+            <summary>
+            Marks the target as dirty for the editor to save it
+            </summary>
+        </member>
+    </members>
+</doc>

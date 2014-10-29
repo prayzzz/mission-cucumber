@@ -1,0 +1,886 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>RuntimeHelpers</name>
+    </assembly>
+    <members>
+        <member name="T:Vexe.Runtime.Types.BetterUndo">
+            <summary>
+            A better undo system implemented using the command-pattern http://www.oodesign.com/command-pattern.html
+            With it, you could specify exactly 'what' is it to be done, and 'how' is it to be undone!
+            If you want to use it in your editor scirpts and be able to undo by a menu item (Undo = Ctrl+Alt+u, Redo = Ctrl+Alt+r)
+            you have to make the BetterUndo instance that you're using the current instance, that way it could be accessed statically
+            from the menu item.
+            ex:
+            BetterUndo _undo = new BetterUndo();
+            BetterUndo undo { get { return BetterUndo.MakeCurrent(ref _undo); } }
+            From this point on, you could use 'undo.Whatever(...);' and if you press the undo/redo menu items, undo/redo will occur
+            
+            One might ask, why not use SerializedProperties since they automatically handle undo/redo?
+            That's true, but a lot of the time using SerializedProperties isn't convenient.
+            Consider the case where you have a List of `T` where T is _not_ a UnityEngine.Object,
+            first of all, now you can't access the list's elements via a SerializedProperty cause they're not UnityEngine.Objects
+            most the times you'd end up using reflection (in case of PropertyDrawers)
+            or accessing the list directly from 'target' (in case of CustomEditors)
+            and manipulating the list directly... But then you'd have to handle undo yourself.
+            For that you'd normally use UnityEditor.Undo which is not bad, but it fails short when you have a complex operation
+            Say each element in that list, had an innert list too, so when you want to change an element of your list
+            you'd want to clear out that inner list! - Using UE.Undo, might cut it or not - depending on the quality of its mood =))
+            
+            UE.Undo is the reason why I couldn't provide good Undo support for uFAction in the inital release,
+            with BetterUndo, uFAction now has excellent undo support!
+            
+            And not just that, BetterUndo is available for you at runtime as well, so you could use it in your games too!
+            
+            Only down side currently is that the stacks don't serialize which mean a BetterUndo instance will only last one editor session.
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Types.BetterUndo.MakeCurrent(Vexe.Runtime.Types.BetterUndo@)">
+            <summary>
+            Makes the passed ref undo object the current undo if it wasn't, and returns it afterwards.
+            Use this in your editor scripts to be able to undo/redo via the menu items (Ctrl+Alt+u, Ctrl+Alt+r)
+            ex:
+            private BetterUndo _undo;
+            public BetterUndo undo { get { return BetterUndo.MakeCurrent(ref _undo); } }
+            And then from this point on, you just use 'undo' - that way this instace becomes the current undo,
+            and thus available to be accessed from the menu items.
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Types.BetterUndo.#ctor">
+            <summary>
+            Creates a BetterUndo instance. Allocates new memory for the undo/redo stacks.
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Types.BetterUndo.Register(Vexe.Runtime.Types.IOperation)">
+            <summary>
+            Registers the specified operation (pushes it to the undo stack, and clears the redo stack)
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Types.BetterUndo.RegisterThenPerform(Vexe.Runtime.Types.IOperation)">
+            <summary>
+            Registers the specified operation and performs it right after
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Types.BetterUndo.Undo">
+            <summary>
+            Performs a single undo operation
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Types.BetterUndo.Undo(System.Int32)">
+            <summary>
+            Performs a specified number of undo operations
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Types.BetterUndo.Redo(System.Int32)">
+            <summary>
+            Performs the specified number of redo operations
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Types.BetterUndo.Redo">
+            <summary>
+            Performs a single redo operation
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Types.BetterUndo.RecordClearRangeFromBy``1(System.Func{System.Collections.Generic.List{``0}},System.Int32,System.Int32,System.Action,System.Action)">
+            <summary>
+            Records (registers then performs) a ClearRange operation on the given list getter from 'start' counting up 'count' number of times
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Types.BetterUndo.RecordClearRangeFromTill``1(System.Func{System.Collections.Generic.List{``0}},System.Int32,System.Int32,System.Action,System.Action)">
+            <summary>
+            Records (registers then performs) a ClearRange operation on the given list getter from 'start' to 'end'
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Types.BetterUndo.RecordClearRangeFromTillEnd``1(System.Func{System.Collections.Generic.List{``0}},System.Int32,System.Action,System.Action)">
+            <summary>
+            Records (registers then performs) a ClearRange operation on the given list getter from 'start' to the end of the list
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Types.BetterUndo.RecordClearList``1(System.Func{System.Collections.Generic.List{``0}},System.Action,System.Action)">
+            <summary>
+            Records (registers then performs) a ClearList operation on the given list getter
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Types.BetterUndo.RecordSetVariable``1(System.Func{``0},System.Action{``0},``0,System.Action,System.Action)">
+            <summary>
+            Records (registers then performs) a SetVariable operation on the given variable getter/setter to set it the specified value 'toValue'
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Types.BetterUndo.RecordSetVariable``1(``0,System.Action{``0},``0,System.Action,System.Action)">
+            <summary>
+            Records (registers then performs) a SetVariable operation on the given variable whose value is denoted by 'current' to set it via the specified setter to the specified value 'toValue'
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Types.BetterUndo.RecordRemoveFromList``1(System.Func{System.Collections.Generic.List{``0}},System.Int32,System.Action,System.Action)">
+            <summary>
+            Records (registers then performs) a RemoveFromList operation on the specified list getter at the specified index
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Types.BetterUndo.RecordRemoveFromList``1(System.Func{System.Collections.Generic.List{``0}},``0,System.Action,System.Action)">
+            <summary>
+            Records (registers then performs) a RemoveFromList operation on the specified list getter, removing 'element'
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Types.BetterUndo.RecordInsertToList``1(System.Func{System.Collections.Generic.List{``0}},System.Int32,``0,System.Action,System.Action)">
+            <summary>
+            Records (registers then performs) an InsertToList operation on the specified list getter at the specified index inserting 'value'
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Types.BetterUndo.RecordAddToList``1(System.Func{System.Collections.Generic.List{``0}},``0,System.Action,System.Action)">
+            <summary>
+            Records (registers then performs) an AddToList operation on the specified list getter, adding (inserting to last) 'value'
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Types.BetterUndo.RecordBasicOp(System.Action,System.Action)">
+            <summary>
+            Records (registers then performs) a BasicOperation operation using the specified actions
+            </summary>
+        </member>
+        <member name="P:Vexe.Runtime.Types.BetterUndo.Current">
+            <summary>
+            Returns the current active BetterUndo instance
+            </summary>
+        </member>
+        <member name="P:Vexe.Runtime.Types.BetterUndo.UndoStackOps">
+            <summary>
+            Returns an array of all the operations currently in the undo stack
+            </summary>
+        </member>
+        <member name="P:Vexe.Runtime.Types.BetterUndo.RedoStackOps">
+            <summary>
+            Returns an array of all the operations currently in the redo stack
+            </summary>
+        </member>
+        <member name="P:Vexe.Runtime.Types.BetterUndo.UndoStackLength">
+            <summary>
+            Returns how many operations are currently in the undo stack
+            </summary>
+        </member>
+        <member name="P:Vexe.Runtime.Types.BetterUndo.RedoStackLength">
+            <summary>
+            Returns how many operations are currently in the redo stack
+            </summary>
+        </member>
+        <member name="T:Vexe.Runtime.Types.BasicOperation">
+            <summary>
+            The most basic forms of operations - all it has is two delegates:
+            an OnPerformed that gets fired after the operation is performed,
+            and on OnUndone get gets fired after the operation is undone
+            </summary>
+        </member>
+        <member name="T:Vexe.Runtime.Types.IOperation">
+            <summary>
+            Implement this interface to create your custom operations
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Types.IOperation.Perform">
+            <summary>
+            Defines what it is to be done
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Types.IOperation.Undo">
+            <summary>
+            Defines how it is to be undone
+            </summary>
+        </member>
+        <member name="P:Vexe.Runtime.Types.IOperation.OnPerformed">
+            <summary>
+            A convenient delegate that gets executed after the operation has been performed
+            </summary>
+        </member>
+        <member name="P:Vexe.Runtime.Types.IOperation.OnUndone">
+            <summary>
+            A convenient delegate that gets executed after the operation has been undone
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Types.BasicOperation.Perform">
+            <summary>
+            Performs the operation
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Types.BasicOperation.Undo">
+            <summary>
+            Undoes the operation
+            </summary>
+        </member>
+        <member name="P:Vexe.Runtime.Types.BasicOperation.OnPerformed">
+            <summary>
+            A delegate to invoke after the performing of the operation (in case of a BaseOperation instance, this is all that is ever executed in Perform)
+            </summary>
+        </member>
+        <member name="P:Vexe.Runtime.Types.BasicOperation.OnUndone">
+            <summary>
+            The delegate to invoke after the undoing of the operation (in case of a BaseOperation instance, this is all that is ever executed in Undo)
+            </summary>
+        </member>
+        <member name="T:Vexe.Runtime.Types.AddToList`1">
+            <summary>
+            Acts like InsertToList. Inserts the element at the end of the list
+            </summary>
+        </member>
+        <member name="T:Vexe.Runtime.Types.InsertToList`1">
+            <summary>
+            List element insertion operation
+            </summary>
+        </member>
+        <member name="T:Vexe.Runtime.Types.ListOperation`1">
+            <summary>
+            A base for generic list operations
+            </summary>
+        </member>
+        <member name="P:Vexe.Runtime.Types.ListOperation`1.GetList">
+            <summary>
+            The list getter/setter
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Types.InsertToList`1.Perform">
+            <summary>
+            Performs the insertion operation and executes OnPerformed
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Types.InsertToList`1.Undo">
+            <summary>
+            Undoes the insertion (removes the element) and executes OnUndone
+            </summary>
+        </member>
+        <member name="P:Vexe.Runtime.Types.InsertToList`1.Index">
+            <summary>
+            The index of which to insert the element at
+            </summary>
+        </member>
+        <member name="P:Vexe.Runtime.Types.InsertToList`1.Value">
+            <summary>
+            The element to insert value
+            </summary>
+        </member>
+        <member name="T:Vexe.Runtime.Types.ClearList`1">
+            <summary>
+            Clears a whole list - ClearList just inherits ClearRange and sets Count to List.Count when it performs the operation
+            </summary>
+        </member>
+        <member name="T:Vexe.Runtime.Types.ClearRange`1">
+            <summary>
+            A list operations that clears a certain range within that list by means of a start index and a count or an end index
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Vexe.Runtime.Types.ClearRange`1.Perform">
+            <summary>
+            Performs the clearing of the range and executes OnPerformed afterwards
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Types.ClearRange`1.Undo">
+            <summary>
+            Undoes the clearning of the range and executes OnUndone afterwards
+            </summary>
+        </member>
+        <member name="P:Vexe.Runtime.Types.ClearRange`1.Start">
+            <summary>
+            The start index
+            </summary>
+        </member>
+        <member name="P:Vexe.Runtime.Types.ClearRange`1.Count">
+            <summary>
+            How many elements to go starting from 'Start'
+            </summary>
+        </member>
+        <member name="P:Vexe.Runtime.Types.ClearRange`1.End">
+            <summary>
+            The end index. If Count is defined, it is used and the end index is ignored
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Types.ClearList`1.Perform">
+            <summary>
+            Performs the clearning and executes OnPerformed afterwards
+            </summary>
+        </member>
+        <member name="T:Vexe.Runtime.Types.RemoveFromList`1">
+            <summary>
+            Removes a single element from a list by means of an index or value
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Types.RemoveFromList`1.Perform">
+            <summary>
+            Performs the removal
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Types.RemoveFromList`1.Undo">
+            <summary>
+            Undoes the removal (inserts back the element)
+            </summary>
+        </member>
+        <member name="P:Vexe.Runtime.Types.RemoveFromList`1.Value">
+            <summary>
+            The value to remove
+            </summary>
+        </member>
+        <member name="P:Vexe.Runtime.Types.RemoveFromList`1.Index">
+            <summary>
+            The index of the value to remove
+            </summary>
+        </member>
+        <member name="T:Vexe.Runtime.Types.SetVariable`1">
+            <summary>
+            Defines a class to change the value of a variable
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Types.SetVariable`1.Perform">
+            <summary>
+            Performs the set operation by calling SetValue passing it ToValue and executes OnPerform afterwards
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Types.SetVariable`1.Undo">
+            <summary>
+            Undoes the set - setting it back to its previous value and calls OnUndone afterwards
+            </summary>
+        </member>
+        <member name="P:Vexe.Runtime.Types.SetVariable`1.SetValue">
+            <summary>
+            The variable's setter to the new value
+            </summary>
+        </member>
+        <member name="P:Vexe.Runtime.Types.SetVariable`1.GetCurrent">
+            <summary>
+            The variable's getter to its current value
+            </summary>
+        </member>
+        <member name="P:Vexe.Runtime.Types.SetVariable`1.ToValue">
+            <summary>
+            The value that we're setting to
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Helpers.AssertionHelper.AssertNotNullAfterAssignment``1(``0@,System.Func{``0},System.String)">
+            <summary>
+            If the value is null, it gets assigned to the specified getter
+            If it's still null afterwards, a NullReferenceException is thrown with the specified msg
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Helpers.AssertionHelper.AssertNotNull(System.Object,System.String)">
+            <summary>
+            Throws a NullReferenceException if obj was null
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Helpers.AssertionHelper.AssertArgumentNotNull(System.Object,System.String)">
+            <summary>
+            Throws an ArgumentNullException if arg was null
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Helpers.AssertionHelper.AssertInBounds``1(System.Collections.Generic.IList{``0},System.Int32,System.String)">
+            <summary>
+            Throws an IndexOutOfRangeException if the specified index was out of the specified list's bounds
+            (less than 0 or greater than or equal to its length)
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Types.DataMember`1.Set(System.Object,`0)">
+            <summary>
+            Sets the current target to the specified target object
+            And sets the member value on that target to the specified value
+            </summary>
+        </member>
+        <member name="P:Vexe.Runtime.Types.DataMember`1.Type">
+            <summary>
+            The wrapped data type
+            </summary>
+        </member>
+        <member name="P:Vexe.Runtime.Types.DataMember`1.Name">
+            <summary>
+            The name of the underlying MemberInfo
+            </summary>
+        </member>
+        <member name="P:Vexe.Runtime.Types.DataMember`1.NiceName">
+            <summary>
+            The friendly nice name of the underlying field/property
+            Ex: "myFieldValue" -> "My Field Value"
+            </summary>
+        </member>
+        <member name="P:Vexe.Runtime.Types.DataMember`1.RegisterUndo">
+            <summary>
+            Undo handler
+            </summary>
+        </member>
+        <member name="P:Vexe.Runtime.Types.DataMember`1.RegisterDirty">
+            <summary>
+            Dirty handler
+            </summary>
+        </member>
+        <member name="P:Vexe.Runtime.Types.DataMember`1.Value">
+            <summary>
+            The [get|set]er of the wrapped data 
+            </summary>
+        </member>
+        <member name="P:Vexe.Runtime.Types.DataMember`1.Attributes">
+            <summary>
+            The attributes applied on the underlying member
+            </summary>
+        </member>
+        <member name="P:Vexe.Runtime.Types.DataMember`1.Info">
+            <summary>
+            The underlying MemberInfo used when constructing this DataMember
+            </summary>
+        </member>
+        <member name="T:Vexe.Runtime.Types.DataMember">
+            <summary>
+            A wrapper class that makes it easy to deal with 'data members'
+            That is, a member that is either a field or property
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Types.DataMember.Get``1">
+            <summary>
+            Gets the strongly-typed value of type 'T'
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Types.DataMember.Set``1(``0)">
+            <summary>
+            Sets the strongly-typed value of type 'T'
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Types.DataMember.Enumerate(System.Collections.Generic.IEnumerable{System.Reflection.MemberInfo},System.Object)">
+            <summary>
+            Returns a lazy enumerable DataMember representation of the specified member infos
+            </summary>
+        </member>
+        <member name="T:Vexe.Runtime.Types.GUI.ColorDuo">
+            <summary>
+            Represents a Color Duo - used by the editor to easily alternate between colors
+            </summary>
+        </member>
+        <member name="T:Vexe.Runtime.Helpers.DirectoryHelper">
+            <summary>
+            Credits: http://www.codeproject.com/Articles/38959/A-Faster-Directory-Enumerator?msg=4824093#xx4824093xx
+            A fast enumerator of files in a directory. Use this if you need to get attributes for 
+            all files in a directory.
+            </summary>
+            <remarks>
+            This enumerator is substantially faster than using <see cref="M:System.IO.Directory.GetFiles(System.String)"/>
+            and then creating a new FileInfo object for each path.  Use this version when you 
+            will need to look at the attibutes of each file returned (for example, you need
+            to check each file in a directory to see if it was modified after a specific date).
+            </remarks>
+        </member>
+        <member name="M:Vexe.Runtime.Helpers.DirectoryHelper.LazyGetDirectoryPath(System.String@,System.String)">
+            <summary>
+            Lazy-gets a directory path to a directory named 'dir'
+            If 'current' exists it is returned otherwise it gets assigned to GetDirectoryPath(dir)
+            and then returned
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Helpers.DirectoryHelper.GetDirectoryPath(System.String)">
+            <summary>
+            Searches the project's hierarchy (starting from "Assets") searching for the specified directory name
+            Returns the directory's full path relative to the project if found
+            Throwns a DirectoryNotFoundException otherwise
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Helpers.DirectoryHelper.EnumerateFiles(System.String)">
+            <summary>
+            Gets <see cref="T:Vexe.Runtime.Helpers.DirectoryHelper.FileData"/> for all the files in a directory.
+            </summary>
+            <param name="path">The path to search.</param>
+            <returns>An object that implements <see cref="T:System.Collections.Generic.IEnumerable`1"/> and 
+            allows you to enumerate the files in the given directory.</returns>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="path"/> is a null reference (Nothing in VB)
+            </exception>
+        </member>
+        <member name="M:Vexe.Runtime.Helpers.DirectoryHelper.EnumerateFiles(System.String,System.String)">
+            <summary>
+            Gets <see cref="T:Vexe.Runtime.Helpers.DirectoryHelper.FileData"/> for all the files in a directory that match a 
+            specific filter.
+            </summary>
+            <param name="path">The path to search.</param>
+            <param name="searchPattern">The search string to match against files in the path.</param>
+            <returns>An object that implements <see cref="T:System.Collections.Generic.IEnumerable`1"/> and 
+            allows you to enumerate the files in the given directory.</returns>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="path"/> is a null reference (Nothing in VB)
+            </exception>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="filter"/> is a null reference (Nothing in VB)
+            </exception>
+        </member>
+        <member name="M:Vexe.Runtime.Helpers.DirectoryHelper.EnumerateFiles(System.String,System.String,System.IO.SearchOption)">
+            <summary>
+            Gets <see cref="T:Vexe.Runtime.Helpers.DirectoryHelper.FileData"/> for all the files in a directory that 
+            match a specific filter, optionally including all sub directories.
+            </summary>
+            <param name="path">The path to search.</param>
+            <param name="searchPattern">The search string to match against files in the path.</param>
+            <param name="searchOption">
+            One of the SearchOption values that specifies whether the search 
+            operation should include all subdirectories or only the current directory.
+            </param>
+            <returns>An object that implements <see cref="T:System.Collections.Generic.IEnumerable`1"/> and 
+            allows you to enumerate the files in the given directory.</returns>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="path"/> is a null reference (Nothing in VB)
+            </exception>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="filter"/> is a null reference (Nothing in VB)
+            </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            <paramref name="searchOption"/> is not one of the valid values of the
+            <see cref="T:System.IO.SearchOption"/> enumeration.
+            </exception>
+        </member>
+        <member name="M:Vexe.Runtime.Helpers.DirectoryHelper.GetFiles(System.String,System.String,System.IO.SearchOption)">
+            <summary>
+            Gets <see cref="T:Vexe.Runtime.Helpers.DirectoryHelper.FileData"/> for all the files in a directory that match a 
+            specific filter.
+            </summary>
+            <param name="path">The path to search.</param>
+            <param name="searchPattern">The search string to match against files in the path.</param>
+            <returns>An object that implements <see cref="T:System.Collections.Generic.IEnumerable`1"/> and 
+            allows you to enumerate the files in the given directory.</returns>
+        </member>
+        <member name="T:Vexe.Runtime.Helpers.DirectoryHelper.FileEnumerable">
+            <summary>
+            Provides the implementation of the 
+            <see cref="T:System.Collections.Generic.IEnumerable`1"/> interface
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Helpers.DirectoryHelper.FileEnumerable.#ctor(System.String,System.String,System.IO.SearchOption)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Vexe.Runtime.Helpers.DirectoryHelper.FileEnumerable"/> class.
+            </summary>
+            <param name="path">The path to search.</param>
+            <param name="filter">The search string to match against files in the path.</param>
+            <param name="searchOption">
+            One of the SearchOption values that specifies whether the search 
+            operation should include all subdirectories or only the current directory.
+            </param>
+        </member>
+        <member name="M:Vexe.Runtime.Helpers.DirectoryHelper.FileEnumerable.GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through the collection.
+            </summary>
+            <returns>
+            A <see cref="T:System.Collections.Generic.IEnumerator`1"/> that can 
+            be used to iterate through the collection.
+            </returns>
+        </member>
+        <member name="M:Vexe.Runtime.Helpers.DirectoryHelper.FileEnumerable.System#Collections#IEnumerable#GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through a collection.
+            </summary>
+            <returns>
+            An <see cref="T:System.Collections.IEnumerator"/> object that can be 
+            used to iterate through the collection.
+            </returns>
+        </member>
+        <member name="T:Vexe.Runtime.Helpers.DirectoryHelper.SafeFindHandle">
+            <summary>
+            Wraps a FindFirstFile handle.
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Helpers.DirectoryHelper.SafeFindHandle.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Vexe.Runtime.Helpers.DirectoryHelper.SafeFindHandle"/> class.
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Helpers.DirectoryHelper.SafeFindHandle.ReleaseHandle">
+            <summary>
+            When overridden in a derived class, executes the code required to free the handle.
+            </summary>
+            <returns>
+            true if the handle is released successfully; otherwise, in the 
+            event of a catastrophic failure, false. In this case, it 
+            generates a releaseHandleFailed MDA Managed Debugging Assistant.
+            </returns>
+        </member>
+        <member name="T:Vexe.Runtime.Helpers.DirectoryHelper.FileEnumerator">
+            <summary>
+            Provides the implementation of the 
+            <see cref="T:System.Collections.Generic.IEnumerator`1"/> interface
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Helpers.DirectoryHelper.FileEnumerator.#ctor(System.String,System.String,System.IO.SearchOption)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Vexe.Runtime.Helpers.DirectoryHelper.FileEnumerator"/> class.
+            </summary>
+            <param name="path">The path to search.</param>
+            <param name="filter">The search string to match against files in the path.</param>
+            <param name="searchOption">
+            One of the SearchOption values that specifies whether the search 
+            operation should include all subdirectories or only the current directory.
+            </param>
+        </member>
+        <member name="M:Vexe.Runtime.Helpers.DirectoryHelper.FileEnumerator.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, 
+            or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Helpers.DirectoryHelper.FileEnumerator.MoveNext">
+            <summary>
+            Advances the enumerator to the next element of the collection.
+            </summary>
+            <returns>
+            true if the enumerator was successfully advanced to the next element; 
+            false if the enumerator has passed the end of the collection.
+            </returns>
+            <exception cref="T:System.InvalidOperationException">
+            The collection was modified after the enumerator was created.
+            </exception>
+        </member>
+        <member name="M:Vexe.Runtime.Helpers.DirectoryHelper.FileEnumerator.Reset">
+            <summary>
+            Sets the enumerator to its initial position, which is before the first element in the collection.
+            </summary>
+            <exception cref="T:System.InvalidOperationException">
+            The collection was modified after the enumerator was created.
+            </exception>
+        </member>
+        <member name="P:Vexe.Runtime.Helpers.DirectoryHelper.FileEnumerator.Current">
+            <summary>
+            Gets the element in the collection at the current position of the enumerator.
+            </summary>
+            <value></value>
+            <returns>
+            The element in the collection at the current position of the enumerator.
+            </returns>
+        </member>
+        <member name="P:Vexe.Runtime.Helpers.DirectoryHelper.FileEnumerator.System#Collections#IEnumerator#Current">
+            <summary>
+            Gets the element in the collection at the current position of the enumerator.
+            </summary>
+            <value></value>
+            <returns>
+            The element in the collection at the current position of the enumerator.
+            </returns>
+        </member>
+        <member name="T:Vexe.Runtime.Helpers.DirectoryHelper.FileEnumerator.SearchContext">
+            <summary>
+            Hold context information about where we current are in the directory search.
+            </summary>
+        </member>
+        <member name="T:Vexe.Runtime.Helpers.DirectoryHelper.FileData">
+            <summary>
+            Contains information about a file returned by the 
+            <see cref="!:FastDirectoryEnumerator"/> class.
+            </summary>
+        </member>
+        <member name="F:Vexe.Runtime.Helpers.DirectoryHelper.FileData.Attributes">
+            <summary>
+            Attributes of the file.
+            </summary>
+        </member>
+        <member name="F:Vexe.Runtime.Helpers.DirectoryHelper.FileData.CreationTimeUtc">
+            <summary>
+            File creation time in UTC
+            </summary>
+        </member>
+        <member name="F:Vexe.Runtime.Helpers.DirectoryHelper.FileData.LastAccessTimeUtc">
+            <summary>
+            File last access time in UTC
+            </summary>
+        </member>
+        <member name="F:Vexe.Runtime.Helpers.DirectoryHelper.FileData.LastWriteTimeUtc">
+            <summary>
+            File last write time in UTC
+            </summary>
+        </member>
+        <member name="F:Vexe.Runtime.Helpers.DirectoryHelper.FileData.Size">
+            <summary>
+            Size of the file in bytes
+            </summary>
+        </member>
+        <member name="F:Vexe.Runtime.Helpers.DirectoryHelper.FileData.Name">
+            <summary>
+            Name of the file
+            </summary>
+        </member>
+        <member name="F:Vexe.Runtime.Helpers.DirectoryHelper.FileData.Path">
+            <summary>
+            Full path to the file.
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Helpers.DirectoryHelper.FileData.ToString">
+            <summary>
+            Returns a <see cref="T:System.String"/> that represents the current <see cref="T:System.Object"/>.
+            </summary>
+            <returns>
+            A <see cref="T:System.String"/> that represents the current <see cref="T:System.Object"/>.
+            </returns>
+        </member>
+        <member name="M:Vexe.Runtime.Helpers.DirectoryHelper.FileData.#ctor(System.String,Vexe.Runtime.Helpers.DirectoryHelper.WIN32_FIND_DATA)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Vexe.Runtime.Helpers.DirectoryHelper.FileData"/> class.
+            </summary>
+            <param name="dir">The directory that the file is stored at</param>
+            <param name="findData">WIN32_FIND_DATA structure that this
+            object wraps.</param>
+        </member>
+        <member name="P:Vexe.Runtime.Helpers.DirectoryHelper.FileData.CreationTime">
+            <summary>
+            Time the file created
+            </summary>
+        </member>
+        <member name="P:Vexe.Runtime.Helpers.DirectoryHelper.FileData.LastAccesTime">
+            <summary>
+            Gets the last access time in local time.
+            </summary>
+        </member>
+        <member name="P:Vexe.Runtime.Helpers.DirectoryHelper.FileData.LastWriteTime">
+            <summary>
+            Gets the last access time in local time.
+            </summary>
+        </member>
+        <member name="T:Vexe.Runtime.Helpers.DirectoryHelper.WIN32_FIND_DATA">
+            <summary>
+            Contains information about the file that is found 
+            by the FindFirstFile or FindNextFile functions.
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Helpers.DirectoryHelper.WIN32_FIND_DATA.ToString">
+            <summary>
+            Returns a <see cref="T:System.String"/> that represents the current <see cref="T:System.Object"/>.
+            </summary>
+            <returns>
+            A <see cref="T:System.String"/> that represents the current <see cref="T:System.Object"/>.
+            </returns>
+        </member>
+        <member name="M:Vexe.Runtime.Helpers.EventsHelper.OnUndoRedoPerformed(System.Action)">
+            <summary>
+            Performs the specified action when a Unity Undo/Redo has been performed
+            </summary>
+            <param name="action"></param>
+        </member>
+        <member name="P:Vexe.Runtime.Helpers.EventsHelper.Rename">
+            <summary>
+            Returns a Rename event (keyCode as F2 and a KeyDown event type)
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Helpers.GOHelper.CreateGo(System.String,UnityEngine.Transform,UnityEngine.HideFlags)">
+            <summary>
+            Creates and returns a GameObject with the passed name, parent and HideFlags
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Helpers.GOHelper.CreateGoWithMb``1(System.String,UnityEngine.GameObject@,UnityEngine.Transform,UnityEngine.HideFlags)">
+            <summary>
+            Creates a GameObject with a MonoBehaviour specified by the generic T arg - returns the MB added
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Helpers.GOHelper.CreateGoWithMb``1(System.String,UnityEngine.Transform,UnityEngine.HideFlags)">
+            <summary>
+            Creates a GameObject with a MonoBehaviour specified by the generic T arg - returns the MB added
+            </summary>
+        </member>
+        <member name="P:Vexe.Runtime.Helpers.GOHelper.EmptyGO">
+            <summary>
+            Returns a cached reference to an empty GO (think NullObject)
+            If none is found, a new one is created
+            </summary>
+        </member>
+        <member name="T:Vexe.Runtime.Helpers.RTHelper">
+            <summary>
+            A helper Utils class for miscellaneous static methods
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Helpers.RTHelper.GetTargetID(System.Object)">
+            <summary>
+            Attempts to cast 'target' to IUniquelyIdentifiedObject, if the cast succeeds, it returns the unique id
+            otherwise the object's hash code
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Helpers.RTHelper.CreateDictionary``2(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IList{``1})">
+            <summary>
+            Creates a dictionary out of the passed keys and values
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Helpers.RTHelper.AssignIfNull``1(``0@,System.Func{``0})">
+            <summary>
+            Assigns the specified ref value to the assginment func if the value was null
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Helpers.RTHelper.GetTexture(System.Byte,System.Byte,System.Byte,System.Byte,UnityEngine.HideFlags)">
+            <summary>
+            Creates and returns a texture whose color components are r, g, b and a with the specifed HideFlags
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Helpers.RTHelper.HexToColor(System.String)">
+            <summary>
+            Credits to Unitywiki: http://wiki.unity3d.com/index.php?title=HexConverter
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Helpers.ReflectionHelper.TypeNameGauntlet(System.Type)">
+            <summary>
+            Used to filter out unwanted type names. Ex "int" instead of "Int32"
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Helpers.ReflectionHelper.IsValidTypeName(System.String,System.Type@)">
+            <summary>
+            Returns true if the specified type name is valid (exists)
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Helpers.ReflectionHelper.GetType(System.String)">
+            <summary>
+            Returns the type of the specified type name
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Helpers.ReflectionHelper.GetUnityEngineAssembly">
+            <summary>
+            Returns a reference to the unity engine assembly
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Helpers.ReflectionHelper.GetAllUnityEngineTypes">
+            <summary>
+            Returns all runtime UnityEngine types
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Helpers.ReflectionHelper.GetAllUnityEngineTypesOf``1">
+            <summary>
+            Retruns all UnityEngine types of the specified wantedType
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Helpers.ReflectionHelper.GetAllUnityEngineTypesOf(System.Type)">
+            <summary>
+            Retruns all UnityEngine types of the specified wantedType
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Helpers.ReflectionHelper.GetAllUserTypesOf``1">
+            <summary>
+            Returns all user-types of the specified wantedType
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Helpers.ReflectionHelper.GetAllUserTypesOf(System.Type)">
+            <summary>
+            Returns all user-types of the specified wantedType
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Helpers.ReflectionHelper.GetAllTypesOf``1">
+            <summary>
+            Returns all types (user (and/or) UnityEngine types) of the specified wantedType
+            </summary>
+        </member>
+        <member name="M:Vexe.Runtime.Helpers.ReflectionHelper.GetAllTypesOf(System.Type)">
+            <summary>
+            Returns all types (user (and/or) UnityEngine types) of the specified wantedType
+            </summary>
+        </member>
+        <member name="T:Vexe.Runtime.Types.Lazy`1">
+            <summary>
+            A lazy memoized object
+            </summary>
+        </member>
+        <member name="P:Vexe.Runtime.Types.Lazy`1.GetValue">
+            <summary>
+            [S|G]ets the value getter
+            </summary>
+        </member>
+        <member name="P:Vexe.Runtime.Types.Lazy`1.Value">
+            <summary>
+            Returns the value - computed only the first time
+            </summary>
+        </member>
+        <member name="T:Vexe.Runtime.Types.SerializedClass`1">
+            <summary>
+            A wrapper to serialize classes/structs that Unity can't
+            </summary>
+        </member>
+        <member name="T:Vexe.Runtime.Types.GUI.StyleDuo">
+            <summary>
+            Represents a GUIStyle Duo
+            </summary>
+        </member>
+    </members>
+</doc>

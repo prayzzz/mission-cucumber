@@ -1,15 +1,17 @@
 ﻿using Assets.Scripts.BaseClasses;
 using Assets.Scripts.Messages;
-using UnityEngine;
+
+using Vexe.Runtime.Types;
 
 namespace Assets.Scripts.Components
 {
     public class HealthComponent : BaseComponent
     {
-        public int TotalHealth;
+        [Min(0)]
+        public int TotalHealth { get; set; }
 
         public int CurrentHealth { get; private set; }
-        
+
         public bool IsDead
         {
             get
@@ -18,17 +20,13 @@ namespace Assets.Scripts.Components
             }
         }
 
-        public void Awake()
+        public override void Awake()
         {
+            base.Awake();
+
             this.CurrentHealth = this.TotalHealth;
 
             this.RegisterEventHandler();
-        }
-
-        [ExecuteInEditMode]
-        public void OnValidate()
-        {
-            this.TotalHealth = this.TotalHealth <= 0 ? 1 : this.TotalHealth;
         }
 
         private void RegisterEventHandler()

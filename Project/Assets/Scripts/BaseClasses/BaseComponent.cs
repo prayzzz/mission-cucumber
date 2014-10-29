@@ -2,16 +2,13 @@
 
 using UnityEngine;
 
+using Vexe.Runtime.Types;
+
 namespace Assets.Scripts.BaseClasses
 {
     [RequireComponent(typeof(BaseUnit))]
-    public class BaseComponent : MonoBehaviour
+    public class BaseComponent : BetterBehaviour
     {
-        public void Start()
-        {
-            this.Unit = this.GetComponent<BaseUnit>();
-        }
-
         protected BaseUnit Unit { get; private set; }
 
         protected GameObjectMessenger Messenger
@@ -22,5 +19,9 @@ namespace Assets.Scripts.BaseClasses
             }
         }
 
+        public virtual void Awake()
+        {
+            this.Unit = this.GetComponent<BaseUnit>();
+        }
     }
 }
