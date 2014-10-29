@@ -320,7 +320,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a9dbd2aed22b634081dfb55d8640054, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SightRadius: 4
+  dbg: 0
+  serializationData:
+    serializedObjects: []
+    serializedStrings:
+      keys:
+      - 'Property: System.Int32 SightRadius'
+      values:
+      - 9
+  serializerType:
+    name: Vexe.Runtime.Serialization.Serializers.FullSerializer.fsFullSerializer,
+      Assembly-CSharp-firstpass, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  id: f6f54130-1f33-437a-9ccb-a6bac95f5f54
 --- !u!114 &1237983564
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -332,6 +343,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 607e799492aabd3489861d7c734c3cd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dbg: 0
+  serializationData:
+    serializedObjects: []
+    serializedStrings:
+      keys: []
+      values: []
+  serializerType:
+    name: Vexe.Runtime.Serialization.Serializers.FullSerializer.fsFullSerializer,
+      Assembly-CSharp-firstpass, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  id: ca61d391-d226-426b-8d05-79f3522f3afe
 --- !u!23 &1237983566
 Renderer:
   m_ObjectHideFlags: 0

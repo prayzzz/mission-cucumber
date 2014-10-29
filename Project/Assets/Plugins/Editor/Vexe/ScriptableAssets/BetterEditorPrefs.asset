@@ -8,7 +8,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 396950fbc298d5042a6fcd074e0918c3, type: 3}
+  m_Script: {fileID: 11500000, guid: 01fed1c8f31d44142ad461fffaefa800, type: 3}
   m_Name: BetterEditorPrefs
   m_EditorClassIdentifier: 
   serializationData:
@@ -25,16 +25,12 @@ MonoBehaviour:
         _ints'
       - 'Field: System.Boolean dbg'
       values:
-      - '[{"Key":{"$content":"0e6adc26-d7d9-472c-9f8c-95d062ad0c6fDictionary<string,
-        bool>BoolsBetterEditorPrefs","$type":"System.String"},"Value":{"$content":false,"$type":"System.Boolean"}},{"Key":{"$content":"0e6adc26-d7d9-472c-9f8c-95d062ad0c6fDictionary<string,
-        int>IntsBetterEditorPrefs","$type":"System.String"},"Value":{"$content":false,"$type":"System.Boolean"}},{"Key":{"$content":"0e6adc26-d7d9-472c-9f8c-95d062ad0c6f","$type":"System.String"},"Value":{"$content":false,"$type":"System.Boolean"}},{"Key":{"$content":"b7aa8790-61d7-4966-ae33-c9ab34d45e94","$type":"System.String"},"Value":{"$content":false,"$type":"System.Boolean"}},{"Key":{"$content":"42a5e698-4e15-4216-b839-d7eb5104e6b9","$type":"System.String"},"Value":{"$content":false,"$type":"System.Boolean"}},{"Key":{"$content":"ebbdc123-fb4e-4a02-9749-6b5e38777b62","$type":"System.String"},"Value":{"$content":false,"$type":"System.Boolean"}},{"Key":{"$content":"ebbdc123-fb4e-4a02-9749-6b5e38777b62Vector3[]VectorsOnChangedExample","$type":"System.String"},"Value":{"$content":false,"$type":"System.Boolean"}},{"Key":{"$content":"ebbdc123-fb4e-4a02-9749-6b5e38777b62Dictionary<string,
-        Vector3>DictionaryOnChangedExample","$type":"System.String"},"Value":{"$content":false,"$type":"System.Boolean"}},{"Key":{"$content":"c24dfdd9-8d3d-436d-bd39-584dc7d19364","$type":"System.String"},"Value":{"$content":false,"$type":"System.Boolean"}},{"Key":{"$content":"c24dfdd9-8d3d-436d-bd39-584dc7d19364Fields","$type":"System.String"},"Value":{"$content":true,"$type":"System.Boolean"}},{"Key":{"$content":"d385e04c-a75c-4c3b-ab53-86d4b4186286","$type":"System.String"},"Value":{"$content":false,"$type":"System.Boolean"}},{"Key":{"$content":"93d4e316-9d92-4177-9284-7bf9765121f6","$type":"System.String"},"Value":{"$content":false,"$type":"System.Boolean"}},{"Key":{"$content":"bfcf015e-4f01-4751-9432-b5cfb62afe2e","$type":"System.String"},"Value":{"$content":true,"$type":"System.Boolean"}},{"Key":{"$content":"bfcf015e-4f01-4751-9432-b5cfb62afe2eFields","$type":"System.String"},"Value":{"$content":false,"$type":"System.Boolean"}},{"Key":{"$content":"bfcf015e-4f01-4751-9432-b5cfb62afe2eProperties","$type":"System.String"},"Value":{"$content":true,"$type":"System.Boolean"}},{"Key":{"$content":"bfcf015e-4f01-4751-9432-b5cfb62afe2eSerializationDataSerialization
-        DataHealthComponent","$type":"System.String"},"Value":{"$content":false,"$type":"System.Boolean"}},{"Key":{"$content":"bfcf015e-4f01-4751-9432-b5cfb62afe2eUInt32Total
-        HealthHealthComponent","$type":"System.String"},"Value":{"$content":true,"$type":"System.Boolean"}},{"Key":{"$content":"822b93bf-3eb2-410a-9f62-f12df21771a4","$type":"System.String"},"Value":{"$content":false,"$type":"System.Boolean"}}]'
+      - '[{"Key":{"$content":"ca61d391-d226-426b-8d05-79f3522f3afe","$type":"System.String"},"Value":{"$content":false,"$type":"System.Boolean"}},{"Key":{"$content":"f6f54130-1f33-437a-9ccb-a6bac95f5f54","$type":"System.String"},"Value":{"$content":false,"$type":"System.Boolean"}},{"Key":{"$content":"f6f54130-1f33-437a-9ccb-a6bac95f5f54Fields","$type":"System.String"},"Value":{"$content":false,"$type":"System.Boolean"}},{"Key":{"$content":"f6f54130-1f33-437a-9ccb-a6bac95f5f54SerializationDataSerialization
+        DataSightComponent","$type":"System.String"},"Value":{"$content":false,"$type":"System.Boolean"}},{"Key":{"$content":"f6f54130-1f33-437a-9ccb-a6bac95f5f54Properties","$type":"System.String"},"Value":{"$content":false,"$type":"System.Boolean"}}]'
       - '[]'
       - false
   serializerType:
     name: Vexe.Runtime.Serialization.Serializers.FullSerializer.fsFullSerializer,
       Assembly-CSharp-firstpass, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  id: 0e6adc26-d7d9-472c-9f8c-95d062ad0c6f
+  id: 
   dbg: 0

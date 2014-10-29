@@ -6,14 +6,17 @@ using Assets.Scripts.Messages;
 
 using UnityEngine;
 
+using Vexe.Runtime.Types;
+
 namespace Assets.Scripts.Components
 {
     public class SightComponent : BaseComponent
     {
-        public int SightRadius;
-
         private HashSet<BaseUnit> unitsInSight;
 
+        [Min(0)]
+        public int SightRadius { get; set; }
+        
         public override void Awake()
         {
             base.Awake();
