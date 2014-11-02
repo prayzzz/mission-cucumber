@@ -1,80 +1,85 @@
 ﻿using System;
 using System.Reflection;
+
+using Assets.Plugins.Editor.Vexe.Drawers.API.Base;
+using Assets.Plugins.Editor.Vexe.GUI;
+
 using Fasterflect;
+
 using UnityEngine;
-using Vexe.Editor.Framework.GUIs;
+
 using Vexe.Runtime.Extensions;
 using Vexe.Runtime.Types;
 
-namespace Vexe.Editor.Framework.Drawers
+namespace Assets.Plugins.Editor.Vexe.Drawers.API.Core
 {
-	public class MethodDrawer : BaseDrawer
-	{
-		private MethodInfo method;
-		private DataInfo[] argMembers;
-		private object[] argValues;
-		private MethodInvoker invoke;
+    public class MethodDrawer : BaseDrawer
+    {
+        private MethodInfo method;
+        private DataInfo[] argMembers;
+        private object[] argValues;
+        private MethodInvoker invoke;
 
-		protected override void OnInitialized()
-		{
-			method       = memberInfo as MethodInfo;
-			invoke	    = method.DelegateForCallMethod();
-			var argInfos = method.GetParameters();
-			int len      = argInfos.Length;
-			argValues    = new object[len];
-			argMembers   = new DataInfo[len];
+        protected override void OnInitialized()
+        {
+            this.method       = this.memberInfo as MethodInfo;
+            this.invoke        = this.method.DelegateForCallMethod();
+            var argInfos = this.method.GetParameters();
+            int len      = argInfos.Length;
+            this.argValues    = new object[len];
+            this.argMembers   = new DataInfo[len];
 
-			for (int i = 0; i < len; i++)
-			{
-				var arg = argInfos[i];
-				var argType = arg.ParameterType;
+            for (int i = 0; i < len; i++)
+            {
+                var arg = argInfos[i];
+                var argType = arg.ParameterType;
 
-				argValues[i] = argInfos[i].ParameterType.GetDefaultValueEmptyIfString();
+                this.argValues[i] = argInfos[i].ParameterType.GetDefaultValueEmptyIfString();
 
-				argMembers[i] = new DataInfo(
-						@id            : id + argType.FullName + arg.Name,
-						@getter        : () => argValues[i],
-						@setter        : x => argValues[i] = x,
-						@attributes    : new Attribute[0],
-						@name          : arg.Name,
-						@elementType   : argType,
-						@declaringType : targetType,
-						@reflectedType : GetType()
-					);
-			}
+                this.argMembers[i] = new DataInfo(
+                        id            : this.id + argType.FullName + arg.Name,
+                        getter        : () => this.argValues[i],
+                        setter        : x => this.argValues[i] = x,
+                        attributes    : new Attribute[0],
+                        name          : arg.Name,
+                        elementType   : argType,
+                        declaringType : this.targetType,
+                        reflectedType : this.GetType()
+                    );
+            }
 
-			dbgLog("Method drawer init");
-		}
+            dbgLog("Method drawer init");
+        }
 
-		public override void OnGUI()
-		{
-			if (!Header())
-				return;
+        public override void OnGUI()
+        {
+            if (!this.Header())
+                return;
 
-			gui._beginIndent();
-			{
-				for (int i = 0; i < argMembers.Length; i++)
-				{
-					gui.MemberField(argMembers[i], rawTarget, unityTarget, id);
-				}
-			}
-			gui._endIndent();
-		}
+            this.gui._beginIndent();
+            {
+                for (int i = 0; i < this.argMembers.Length; i++)
+                {
+                    this.gui.MemberField(this.argMembers[i], this.rawTarget, this.unityTarget, this.id);
+                }
+            }
+            this.gui._endIndent();
+        }
 
-		private bool Header()
-		{
-			gui._beginH();
-			{
-				if (argMembers.Length == 0)
-					gui.Label(niceName);
-				else
-					foldout = gui.Foldout(niceName, foldout, GUILayout.ExpandWidth(true));
-				gui.FlexibleSpace();
-				if (gui.MiniButton("Invoke", MiniButtonStyle.Right, null))
-					invoke(rawTarget, argValues);
-			}
-			gui._endH();
-			return argMembers.Length == 0 || foldout;
-		}
-	}
+        private bool Header()
+        {
+            this.gui._beginH();
+            {
+                if (this.argMembers.Length == 0)
+                    this.gui.Label(this.niceName);
+                else
+                    this.foldout = this.gui.Foldout(this.niceName, this.foldout, GUILayout.ExpandWidth(true));
+                this.gui.FlexibleSpace();
+                if (this.gui.MiniButton("Invoke", MiniButtonStyle.Right, null))
+                    this.invoke(this.rawTarget, this.argValues);
+            }
+            this.gui._endH();
+            return this.argMembers.Length == 0 || this.foldout;
+        }
+    }
 }

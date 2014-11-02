@@ -1,12 +1,11 @@
 ﻿using System;
-using Vexe.Runtime.Serialization;
 
-namespace Vexe.Runtime.Types
+namespace Assets.Plugins.Vexe.Runtime.Types.Core
 {
-	public interface ISavable
-	{
-		void Save();
-		void Load();
-		Type SerializerType { get; set; }
-	}
+    public interface ISavable
+    {
+        void Save();
+        void Load();
+        Type SerializerType { get; set; }
+    }
 }

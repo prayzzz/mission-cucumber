@@ -1,15 +1,15 @@
 ﻿using System;
 
-namespace Vexe.Runtime.Serialization
+namespace Assets.Plugins.Vexe.Runtime.Serialization
 {
-	[AttributeUsage(AttributeTargets.Class)]
-	public class DisplayNameAttribute : Attribute
-	{
-		public readonly string name;
+    [AttributeUsage(AttributeTargets.Class)]
+    public class DisplayNameAttribute : Attribute
+    {
+        public readonly string name;
 
-		public DisplayNameAttribute(string name)
-		{
-			this.name = name;
-		}
-	}
+        public DisplayNameAttribute(string name)
+        {
+            this.name = name;
+        }
+    }
 }

@@ -1,86 +1,92 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+
+using Assets.Plugins.Editor.Vexe.Drawers.API.Base;
+using Assets.Plugins.Editor.Vexe.GUI;
+using Assets.Plugins.Vexe.Runtime.Types.Attributes.API;
+using Assets.Plugins.Vexe.Runtime.Types.Attributes.User.Filters;
+
 using Smooth.Slinq;
+
 using UnityEngine;
-using Vexe.Editor.Framework.GUIs;
+
 using Vexe.Editor.Helpers;
-using Vexe.Runtime.Types;
 
-namespace Vexe.Editor.Framework.Drawers
+namespace Assets.Plugins.Editor.Vexe.Drawers.User.Filters
 {
-	public class FieldFilter
-	{
-		private readonly string[] values;
-		private readonly GLWrapper gui;
-		private Action<string> setValue;
-		private string search;
+    public class FieldFilter
+    {
+        private readonly string[] values;
+        private readonly GLWrapper gui;
+        private Action<string> setValue;
+        private string search;
 
-		public FieldFilter(string[] values, GLWrapper gui, Action<string> setValue)
-		{
-			this.values   = values;
-			this.gui      = gui;
-			this.setValue = setValue;
-		}
+        public FieldFilter(string[] values, GLWrapper gui, Action<string> setValue)
+        {
+            this.values   = values;
+            this.gui      = gui;
+            this.setValue = setValue;
+        }
 
-		public void OnGUI()
-		{
-			var newSearch = gui.TextField(GUIContent.none, search, GUILayout.Width(50f));
-			if (search != newSearch)
-			{
-				var match = values.Slinq().FirstOrNone((n, p) =>
-					p.Length == 1 ? p == n : Regex.IsMatch(n, p), newSearch);
+        public void OnGUI()
+        {
+            var newSearch = this.gui.TextField(GUIContent.none, this.search, GUILayout.Width(50f));
+            if (this.search != newSearch)
+            {
+                var match = this.values.Slinq().FirstOrNone((n, p) =>
+                    p.Length == 1 ? p == n : Regex.IsMatch(n, p), newSearch);
 
-				search = newSearch;
+                this.search = newSearch;
 
-				if (match.isSome)
-				{
-					setValue(match.value);
-				}
-			}
-		}
-	}
+                if (match.isSome)
+                {
+                    this.setValue(match.value);
+                }
+            }
+        }
+    }
 
-	public abstract class FilterDrawer<T, A> : CompositeDrawer<T, A> where A : CompositeAttribute
-	{
-		private FieldFilter filter;
+    public abstract class FilterDrawer<T, A> : CompositeDrawer<T, A> where A : CompositeAttribute
+    {
+        private FieldFilter filter;
 
-		protected override void OnInitialized()
-		{
-			filter = new FieldFilter(GetValues(), gui, SetValue);
-		}
+        protected override void OnInitialized()
+        {
+            this.filter = new FieldFilter(this.GetValues(), this.gui, this.SetValue);
+        }
 
-		public override void OnRightGUI()
-		{
-			filter.OnGUI();
-		}
+        public override void OnRightGUI()
+        {
+            this.filter.OnGUI();
+        }
 
-		protected abstract string[] GetValues();
-		protected abstract void SetValue(string value);
-	}
+        protected abstract string[] GetValues();
+        protected abstract void SetValue(string value);
+    }
 
-	public class FilterEnumAttributeDrawer : FilterDrawer<Enum, FilterEnumAttribute>
-	{
-		protected override void SetValue(string value)
-		{
-			dmValue = Enum.Parse(memberType, value) as Enum;
-		}
+    public class FilterEnumAttributeDrawer : FilterDrawer<Enum, FilterEnumAttribute>
+    {
+        protected override void SetValue(string value)
+        {
+            this.dmValue = Enum.Parse(this.memberType, value) as Enum;
+        }
 
-		protected override string[] GetValues()
-		{
-			return Enum.GetNames(memberType);
-		}
-	}
+        protected override string[] GetValues()
+        {
+            return Enum.GetNames(this.memberType);
+        }
+    }
 
-	public class FilterTagsAttributeDrawer : FilterDrawer<string, FilterTagsAttribute>
-	{
-		protected override string[] GetValues()
-		{
-			return EditorHelper.Tags;
-		}
+    public class FilterTagsAttributeDrawer : FilterDrawer<string, FilterTagsAttribute>
+    {
+        protected override string[] GetValues()
+        {
+            return EditorHelper.Tags;
+        }
 
-		protected override void SetValue(string value)
-		{
-			dmValue = value;
-		}
-	}
+        protected override void SetValue(string value)
+        {
+            this.dmValue = value;
+        }
+    }
 }

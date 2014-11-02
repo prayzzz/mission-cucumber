@@ -1,15 +1,16 @@
-﻿using UnityEngine;
-using Vexe.Editor.Helpers;
-using Vexe.Runtime.Types;
-using UnityObject = UnityEngine.Object;
+﻿using Assets.Plugins.Editor.Vexe.Drawers.API.Base;
+using Assets.Plugins.Editor.Vexe.Other;
+using Assets.Plugins.Vexe.Runtime.Types.Attributes.User.Others;
 
-namespace Vexe.Editor.Framework.Drawers
+using UnityEngine;
+
+namespace Assets.Plugins.Editor.Vexe.Drawers.User.Others
 {
-	public class DraggableAttributeDrawer : CompositeDrawer<UnityObject, DraggableAttribute>
-	{
-		public override void OnMemberDrawn(Rect rect)
-		{
-			GUIHelper.RegisterFieldForDrag(rect, dmValue);
-		}
-	}
+    public class DraggableAttributeDrawer : CompositeDrawer<Object, DraggableAttribute>
+    {
+        public override void OnMemberDrawn(Rect rect)
+        {
+            GUIHelper.RegisterFieldForDrag(rect, this.dmValue);
+        }
+    }
 }

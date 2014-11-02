@@ -1,51 +1,55 @@
 ﻿using System;
-using System.Linq;
+
+using Assets.Plugins.Vexe.Runtime.Types.Attributes.User.Requirements;
+
 using UnityEditor;
+
 using UnityEngine;
-using Vexe.Runtime.Helpers;
+
 using Vexe.Runtime.Types;
-using UnityObject = UnityEngine.Object;
 
-namespace Vexe.Editor.Framework.Drawers
+using Object = UnityEngine.Object;
+
+namespace Assets.Plugins.Editor.Vexe.Drawers.User.Requirements
 {
-	public class RequiredAttributeDrawer : BaseRequirementAttributeDrawer<RequiredAttribute>
-	{
-		protected override Component GetComponent(GameObject from, Type componentType)
-		{
-			Component result = null;
-			if (dataMember.IsNull())
-			{
-				result = UnityObject.FindObjectOfType(memberType) as Component;
-				if (result == null)
-				{
-					if (attribute.Add && !memberType.IsAbstract)
-					{
-						var go = new GameObject("[Required] " + memberTypeName);
-						result = go.AddComponent(memberType);
-					}
-				}
+    public class RequiredAttributeDrawer : BaseRequirementAttributeDrawer<RequiredAttribute>
+    {
+        protected override Component GetComponent(GameObject from, Type componentType)
+        {
+            Component result = null;
+            if (this.dataMember.IsNull())
+            {
+                result = Object.FindObjectOfType(this.memberType) as Component;
+                if (result == null)
+                {
+                    if (this.attribute.Add && !this.memberType.IsAbstract)
+                    {
+                        var go = new GameObject("[Required] " + this.memberTypeName);
+                        result = go.AddComponent(this.memberType);
+                    }
+                }
 
-				if (result == null)
-					gui.HelpBox("Reference is required but is yet to be assigned...", MessageType.Warning);
-			}
+                if (result == null)
+                    this.gui.HelpBox("Reference is required but is yet to be assigned...", MessageType.Warning);
+            }
 
-			return result;
-		}
+            return result;
+        }
 
-		protected override GameObject GetGO(GameObject from)
-		{
-			GameObject result = null;
-			if (dataMember.IsNull())
-			{
-				if (attribute.Add)
-					result = new GameObject("[Required] " + dataMember.Name);
-				else result = GameObject.Find(dataMember.Name);
+        protected override GameObject GetGO(GameObject from)
+        {
+            GameObject result = null;
+            if (this.dataMember.IsNull())
+            {
+                if (this.attribute.Add)
+                    result = new GameObject("[Required] " + this.dataMember.Name);
+                else result = GameObject.Find(this.dataMember.Name);
 
-				if (result == null)
-					gui.HelpBox("Reference is required but is yet to be assigned...", MessageType.Warning);
-			}
+                if (result == null)
+                    this.gui.HelpBox("Reference is required but is yet to be assigned...", MessageType.Warning);
+            }
 
-			return result;
-		}
-	}
+            return result;
+        }
+    }
 }

@@ -1,6 +1,5 @@
-﻿using Assets.Scripts.Common;
-
-using Vexe.Runtime.Types;
+﻿using Assets.Plugins.Vexe.Runtime.Types.Core;
+using Assets.Scripts.Common;
 
 namespace Assets.Scripts.BaseClasses
 {

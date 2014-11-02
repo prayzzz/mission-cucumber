@@ -1,34 +1,36 @@
-﻿using Vexe.Editor.Helpers;
+﻿using Assets.Plugins.Editor.Vexe.Drawers.API.Base;
+using Assets.Plugins.Vexe.Runtime.Types.Attributes.User.Popups;
+
+using Vexe.Editor.Helpers;
 using Vexe.Runtime.Extensions;
-using Vexe.Runtime.Types;
 
-namespace Vexe.Editor.Framework.Drawers
+namespace Assets.Plugins.Editor.Vexe.Drawers.User.Popups
 {
-	public class TagsAttributeDrawer : AttributeDrawer<string, TagsAttribute>
-	{
-		private int current;
-		private string[] tags;
+    public class TagsAttributeDrawer : AttributeDrawer<string, TagsAttribute>
+    {
+        private int current;
+        private string[] tags;
 
-		protected override void OnInitialized()
-		{
-			tags = EditorHelper.Tags;
-		}
+        protected override void OnInitialized()
+        {
+            this.tags = EditorHelper.Tags;
+        }
 
-		public override void OnGUI()
-		{
-			if (dmValue != tags[current])
-			{
-				current = tags.IndexOfZeroIfNotFound(dmValue);
-			}
+        public override void OnGUI()
+        {
+            if (this.dmValue != this.tags[this.current])
+            {
+                this.current = this.tags.IndexOfZeroIfNotFound(this.dmValue);
+            }
 
-			var selection = gui.Popup(niceName, current, tags);
-			{
-				if (current != selection)
-				{
-					dmValue = tags[selection];
-					current = selection;
-				}
-			}
-		}
-	}
+            var selection = this.gui.Popup(this.niceName, this.current, this.tags);
+            {
+                if (this.current != selection)
+                {
+                    this.dmValue = this.tags[selection];
+                    this.current = selection;
+                }
+            }
+        }
+    }
 }

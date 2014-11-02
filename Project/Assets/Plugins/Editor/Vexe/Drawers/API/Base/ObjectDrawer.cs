@@ -1,49 +1,49 @@
-﻿using UnityEditor;
-using UnityEngine;
+﻿using UnityEngine;
+
 using Vexe.Runtime.Types;
 
-namespace Vexe.Editor.Framework.Drawers
+namespace Assets.Plugins.Editor.Vexe.Drawers.API.Base
 {
-	public abstract class ObjectDrawer<T> : BaseDrawer
-	{
-		protected DataMember<T> dataMember { private set; get; }
+    public abstract class ObjectDrawer<T> : BaseDrawer
+    {
+        protected DataMember<T> dataMember { private set; get; }
 
-		protected T dmValue
-		{
-			get { return dataMember.Value; }
-			set { dataMember.Value = value; }
-		}
+        protected T dmValue
+        {
+            get { return this.dataMember.Value; }
+            set { this.dataMember.Value = value; }
+        }
 
-		protected override void InternalInitialize()
-		{
-			dbgLog("Undo target: " + unityTarget);
-			dataMember = DataMember.Create<T>(memberInfo, rawTarget, RegisterDirty, RegisterUndo);
-		}
+        protected override void InternalInitialize()
+        {
+            dbgLog("Undo target: " + this.unityTarget);
+            this.dataMember = DataMember.Create<T>(this.memberInfo, this.rawTarget, this.RegisterDirty, this.RegisterUndo);
+        }
 
-		public void MemberField()
-		{
-			MemberField(dataMember);
-		}
+        public void MemberField()
+        {
+            this.MemberField(this.dataMember);
+        }
 
-		public void MemberField<TMemberType>(DataMember<TMemberType> dm)
-		{
-			gui.MemberField(dm, unityTarget, id);
-		}
+        public void MemberField<TMemberType>(DataMember<TMemberType> dm)
+        {
+            this.gui.MemberField(dm, this.unityTarget, this.id);
+        }
 
-		public sealed override void OnLeftGUI()
-		{
-		}
-		public sealed override void OnRightGUI()
-		{
-		}
-		public sealed override void OnUpperGUI()
-		{
-		}
-		public sealed override void OnLowerGUI()
-		{
-		}
-		public sealed override void OnMemberDrawn(Rect area)
-		{
-		}
-	}
+        public sealed override void OnLeftGUI()
+        {
+        }
+        public sealed override void OnRightGUI()
+        {
+        }
+        public sealed override void OnUpperGUI()
+        {
+        }
+        public sealed override void OnLowerGUI()
+        {
+        }
+        public sealed override void OnMemberDrawn(Rect area)
+        {
+        }
+    }
 }

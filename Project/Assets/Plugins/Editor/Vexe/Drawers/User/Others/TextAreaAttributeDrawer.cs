@@ -1,20 +1,22 @@
-﻿using UnityEditor;
-using Vexe.Runtime.Types;
+﻿using Assets.Plugins.Editor.Vexe.Drawers.API.Base;
+using Assets.Plugins.Vexe.Runtime.Types.Attributes.User.Others;
 
-namespace Vexe.Editor.Framework.Drawers
+using UnityEditor;
+
+namespace Assets.Plugins.Editor.Vexe.Drawers.User.Others
 {
-	public class ParagraphAttributeDrawer : AttributeDrawer<string, ParagraphAttribute>
-	{
-		protected override void OnInitialized()
-		{
-			if (dmValue == null)
-				dmValue = string.Empty;
-		}
+    public class ParagraphAttributeDrawer : AttributeDrawer<string, ParagraphAttribute>
+    {
+        protected override void OnInitialized()
+        {
+            if (this.dmValue == null)
+                this.dmValue = string.Empty;
+        }
 
-		public override void OnGUI()
-		{
-			gui.Label(niceName);
-			dmValue = EditorGUILayout.TextArea(dmValue);
-		}
-	}
+        public override void OnGUI()
+        {
+            this.gui.Label(this.niceName);
+            this.dmValue = EditorGUILayout.TextArea(this.dmValue);
+        }
+    }
 }

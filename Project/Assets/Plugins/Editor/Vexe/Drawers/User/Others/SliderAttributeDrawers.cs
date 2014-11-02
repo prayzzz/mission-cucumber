@@ -1,20 +1,21 @@
-﻿using Vexe.Runtime.Types;
+﻿using Assets.Plugins.Editor.Vexe.Drawers.API.Base;
+using Assets.Plugins.Vexe.Runtime.Types.Attributes.User.Others;
 
-namespace Vexe.Editor.Framework.Drawers
+namespace Assets.Plugins.Editor.Vexe.Drawers.User.Others
 {
-	public class IntSliderAttributeDrawer : AttributeDrawer<int, IntSliderAttribute>
-	{
-		public override void OnGUI()
-		{
-			dmValue = gui.IntSlider(niceName, dmValue, attribute.left, attribute.right);
-		}
-	}
+    public class IntSliderAttributeDrawer : AttributeDrawer<int, IntSliderAttribute>
+    {
+        public override void OnGUI()
+        {
+            this.dmValue = this.gui.IntSlider(this.niceName, this.dmValue, this.attribute.left, this.attribute.right);
+        }
+    }
 
-	public class FloatSliderAttributeDrawer : AttributeDrawer<float, FloatSliderAttribute>
-	{
-		public override void OnGUI()
-		{
-			dmValue = gui.Slider(niceName, dmValue, attribute.left, attribute.right);
-		}
-	}
+    public class FloatSliderAttributeDrawer : AttributeDrawer<float, FloatSliderAttribute>
+    {
+        public override void OnGUI()
+        {
+            this.dmValue = this.gui.Slider(this.niceName, this.dmValue, this.attribute.left, this.attribute.right);
+        }
+    }
 }

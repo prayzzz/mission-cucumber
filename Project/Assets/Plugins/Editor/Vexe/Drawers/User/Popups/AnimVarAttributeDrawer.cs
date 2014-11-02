@@ -1,87 +1,92 @@
 ﻿using System.Text.RegularExpressions;
+
+using Assets.Plugins.Editor.Vexe.Drawers.API.Base;
+using Assets.Plugins.Vexe.Runtime.Types.Attributes.User.Popups;
+
 using Fasterflect;
+
 using UnityEngine;
+
 using Vexe.Editor.Helpers;
 using Vexe.Runtime.Extensions;
-using Vexe.Runtime.Types;
 
-namespace Vexe.Editor.Framework.Drawers
+namespace Assets.Plugins.Editor.Vexe.Drawers.User.Popups
 {
-	public class AnimatorVariableAttributeDrawer : AttributeDrawer<string, AnimVarAttribute>
-	{
-		private string[] variables;
-		private Animator mAnimator;
-		private int current;
+    public class AnimatorVariableAttributeDrawer : AttributeDrawer<string, AnimVarAttribute>
+    {
+        private string[] variables;
+        private Animator mAnimator;
+        private int current;
 
-		private Animator animator
-		{
-			get
-			{
-				if (mAnimator == null)
-				{
-					string getter = attribute.GetAnimator;
-					if (getter.IsNullOrEmpty())
-					{
-						mAnimator = gameObject.GetComponent<Animator>();
-					}
-					else
-					{
-						mAnimator = targetType.GetMethod(getter, Flags.InstanceAnyVisibility)
-										          .Invoke(rawTarget, null) as Animator;
-					}
-				}
-				return mAnimator;
-			}
-		}
+        private Animator animator
+        {
+            get
+            {
+                if (this.mAnimator == null)
+                {
+                    string getter = this.attribute.GetAnimator;
+                    if (getter.IsNullOrEmpty())
+                    {
+                        this.mAnimator = this.gameObject.GetComponent<Animator>();
+                    }
+                    else
+                    {
+                        this.mAnimator = this.targetType.GetMethod(getter, Flags.InstanceAnyVisibility)
+                                                  .Invoke(this.rawTarget, null) as Animator;
+                    }
+                }
+                return this.mAnimator;
+            }
+        }
 
-		protected override void OnInitialized()
-		{
-			if (dmValue == null)
-				dmValue = "";
+        protected override void OnInitialized()
+        {
+            if (this.dmValue == null)
+                this.dmValue = "";
 
-			if (animator != null && animator.runtimeAnimatorController != null)
-			{
-				FetchVariables();
-			}
-		}
+            if (this.animator != null && this.animator.runtimeAnimatorController != null)
+            {
+                this.FetchVariables();
+            }
+        }
 
-		private void FetchVariables()
-		{
-			variables = EditorHelper.GetAnimatorVariableNames(animator);
-			if (variables.IsEmpty())
-				variables = new[] { "N/A" };
-			else
-			{
-				if (!attribute.AutoMatch.IsNullOrEmpty())
-				{
-					string match = niceName.Remove(niceName.IndexOf(attribute.AutoMatch));
-					match = Regex.Replace(match, @"\s+", "");
-					if (variables.ContainsValue(match))
-						dmValue = match;
-				}
-				current = variables.IndexOfZeroIfNotFound(dmValue);
-			}
-		}
+        private void FetchVariables()
+        {
+            this.variables = EditorHelper.GetAnimatorVariableNames(this.animator);
+            if (this.variables.IsEmpty())
+                this.variables = new[] { "N/A" };
+            else
+            {
+                if (!this.attribute.AutoMatch.IsNullOrEmpty())
+                {
+                    string match = this.niceName.Remove(this.niceName.IndexOf(this.attribute.AutoMatch));
+                    match = Regex.Replace(match, @"\s+", "");
+                    if (this.variables.ContainsValue(match))
+                        this.dmValue = match;
+                }
+                this.current = this.variables.IndexOfZeroIfNotFound(this.dmValue);
+            }
+        }
 
-		public override void OnGUI()
-		{
-			if (animator == null || animator.runtimeAnimatorController == null)
-			{
-				dmValue = gui.TextField(niceName, dmValue);
-			}
-			else
-			{
-				if (variables.IsNullOrEmpty())
-				{
-					FetchVariables();
-				}
+        public override void OnGUI()
+        {
+            if (this.animator == null || this.animator.runtimeAnimatorController == null)
+            {
+                this.dmValue = this.gui.TextField(this.niceName, this.dmValue);
+            }
+            else
+            {
+                if (this.variables.IsNullOrEmpty())
+                {
+                    this.FetchVariables();
+                }
 
-				var x = gui.Popup(niceName, current, variables);
-				{
-					if (current != x || dmValue != variables[x])
-						dmValue = variables[current = x];
-				}
-			}
-		}
-	}
+                var x = this.gui.Popup(this.niceName, this.current, this.variables);
+                {
+                    if (this.current != x || this.dmValue != this.variables[x])
+                        this.dmValue = this.variables[this.current = x];
+                }
+            }
+        }
+    }
 }

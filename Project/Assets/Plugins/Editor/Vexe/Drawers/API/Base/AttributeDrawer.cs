@@ -1,16 +1,17 @@
-﻿using Vexe.Runtime.Extensions;
-using Vexe.Runtime.Types;
+﻿using Assets.Plugins.Vexe.Runtime.Types.Attributes.API;
 
-namespace Vexe.Editor.Framework.Drawers
+using Vexe.Runtime.Extensions;
+
+namespace Assets.Plugins.Editor.Vexe.Drawers.API.Base
 {
-	public abstract class AttributeDrawer<TObjectType, TAttribute> : ObjectDrawer<TObjectType> where TAttribute : DrawnAttribute
-	{
-		protected TAttribute attribute { private set; get; }
+    public abstract class AttributeDrawer<TObjectType, TAttribute> : ObjectDrawer<TObjectType> where TAttribute : DrawnAttribute
+    {
+        protected TAttribute attribute { private set; get; }
 
-		protected sealed override void InternalInitialize()
-		{
-			base.InternalInitialize();
-			attribute = attributes.GetAttribute<TAttribute>();
-		}
-	}
+        protected sealed override void InternalInitialize()
+        {
+            base.InternalInitialize();
+            this.attribute = this.attributes.GetAttribute<TAttribute>();
+        }
+    }
 }

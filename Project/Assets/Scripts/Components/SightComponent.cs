@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+using Assets.Plugins.Vexe.Runtime.Types.Attributes.User.Constraints;
 using Assets.Scripts.BaseClasses;
 using Assets.Scripts.Messages;
 
 using UnityEngine;
-
-using Vexe.Runtime.Types;
 
 namespace Assets.Scripts.Components
 {
@@ -16,7 +15,7 @@ namespace Assets.Scripts.Components
 
         [Min(0)]
         public int SightRadius { get; set; }
-        
+
         public override void Awake()
         {
             base.Awake();
@@ -30,20 +29,22 @@ namespace Assets.Scripts.Components
 
         public void OnTriggerStay(Collider other)
         {
-            var unit = other.gameObject.GetComponent<BaseUnit>();
+            var target = other.gameObject.GetComponent<BaseUnit>();
 
-            if (unit == null)
+            if (target == null)
             {
                 return;
             }
 
             var isVisible = new IsVisibleMessage();
+            target.Messenger.Send(isVisible);
 
-            unit.Messenger.Send(isVisible);
+            var isAlive = new IsAliveMessage();
+            target.Messenger.Send(isAlive);
 
-            if (isVisible.IsVisble)
+            if (isVisible.IsVisble && isAlive.IsAlive)
             {
-                this.unitsInSight.Add(unit);
+                this.unitsInSight.Add(target);
             }
         }
 
@@ -52,10 +53,10 @@ namespace Assets.Scripts.Components
             if (this.unitsInSight.Any())
             {
                 var modifyMessage = new ModifyUnitsInSightMessage(this.unitsInSight);
-                this.Unit.Messenger.Send(modifyMessage);
+                this.Messenger.Send(modifyMessage);
 
                 var publishMessage = new UnitsInSightMessage(modifyMessage.UnitsInSight);
-                this.Unit.Messenger.Send(publishMessage);
+                this.Messenger.Send(publishMessage);
             }
 
             this.unitsInSight.Clear();

@@ -1,16 +1,20 @@
-﻿using UnityEngine;
+﻿using Assets.Plugins.Vexe.Runtime.Types.Attributes.User.Filters;
+using Assets.Plugins.Vexe.Runtime.Types.Attributes.User.Popups;
+using Assets.Plugins.Vexe.Runtime.Types.Core;
 
-namespace Vexe.Runtime.Types.Examples
+using UnityEngine;
+
+namespace Assets.Plugins.Vexe.Runtime.Examples.Scripts.Attributes
 {
-	public class FiltersExample : BetterBehaviour
-	{
-		[FilterEnum]
-		public KeyCode jumpKey;
+    public class FiltersExample : BetterBehaviour
+    {
+        [FilterEnum]
+        public KeyCode jumpKey;
 
-		[FilterTags]
-		public string playerTag;
+        [FilterTags]
+        public string playerTag;
 
-		[Tags, FilterTags]
-		public string enemyTag;
-	}
+        [Tags, FilterTags]
+        public string enemyTag;
+    }
 }
