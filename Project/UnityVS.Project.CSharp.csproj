@@ -81,6 +81,7 @@
     <Compile Include="Assets\Scripts\BaseClasses\BaseUnit.cs" />
     <Compile Include="Assets\Scripts\Common\Annotations.cs" />
     <Compile Include="Assets\Scripts\Common\GameObjectMessenger.cs" />
+    <Compile Include="Assets\Scripts\Common\RepeatingInvoker.cs" />
     <Compile Include="Assets\Scripts\Common\TeamEnum.cs" />
     <Compile Include="Assets\Scripts\Common\WeakAction.cs" />
     <Compile Include="Assets\Scripts\Common\WeakActionGeneric.cs" />
