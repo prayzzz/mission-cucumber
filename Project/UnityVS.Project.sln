@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30723.0
-MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityVS.Project.CSharp.Plugins", "UnityVS.Project.CSharp.Plugins.csproj", "{928C1593-6802-452A-CDDC-5533A92F08F8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityVS.Project.CSharp", "UnityVS.Project.CSharp.csproj", "{7CB6A550-7BC7-3240-C0B8-53B4213EFFCA}"

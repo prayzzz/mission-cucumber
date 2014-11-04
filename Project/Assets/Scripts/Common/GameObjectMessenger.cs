@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
+
+using UnityEngine;
 
 namespace Assets.Scripts.Common
 {
@@ -36,7 +37,7 @@ namespace Assets.Scripts.Common
             {
                 return;
             }
-            
+
             foreach (var weakAction in this.registry[messageType].ToList())
             {
                 var weakActionCasted = weakAction as WeakAction<T>;
@@ -59,7 +60,7 @@ namespace Assets.Scripts.Common
 
             if (!this.registry.ContainsKey(messageType))
             {
-                Debug.WriteLine("No actions registered for type '{0}.{1}'", messageType.Namespace, messageType.Name);
+                //// Debug.LogWarning(string.Format("No actions registered for type '{0}.{1}'", messageType.Namespace, messageType.Name));
                 return;
             }
 

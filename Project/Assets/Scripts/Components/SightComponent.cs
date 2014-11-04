@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+using Assets.Plugins.Vexe.Runtime.Types.Attributes.User.Categories;
 using Assets.Plugins.Vexe.Runtime.Types.Attributes.User.Constraints;
 using Assets.Scripts.BaseClasses;
 using Assets.Scripts.Messages;
@@ -9,6 +10,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Components
 {
+    [BasicView]
     public class SightComponent : BaseComponent
     {
         private HashSet<BaseUnit> unitsInSight;
@@ -16,9 +18,9 @@ namespace Assets.Scripts.Components
         [Min(0)]
         public int SightRadius { get; set; }
 
-        public override void Awake()
+        public override void Start()
         {
-            base.Awake();
+            base.Start();
 
             this.unitsInSight = new HashSet<BaseUnit>();
 
@@ -39,10 +41,7 @@ namespace Assets.Scripts.Components
             var isVisible = new IsVisibleMessage();
             target.Messenger.Send(isVisible);
 
-            var isAlive = new IsAliveMessage();
-            target.Messenger.Send(isAlive);
-
-            if (isVisible.IsVisble && isAlive.IsAlive)
+            if (isVisible.IsVisble)
             {
                 this.unitsInSight.Add(target);
             }

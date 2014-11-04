@@ -1,11 +1,13 @@
 ﻿using System;
 
+using Assets.Plugins.Vexe.Runtime.Types.Attributes.User.Categories;
 using Assets.Plugins.Vexe.Runtime.Types.Attributes.User.Constraints;
 using Assets.Scripts.BaseClasses;
 using Assets.Scripts.Messages;
 
 namespace Assets.Scripts.Components
 {
+    [BasicView]
     public class HealthComponent : BaseComponent
     {
         [Min(0)]
@@ -21,9 +23,17 @@ namespace Assets.Scripts.Components
             }
         }
 
-        public override void Awake()
+        public bool IsWounded
         {
-            base.Awake();
+            get
+            {
+                return this.IsAlive && this.CurrentHealth < this.TotalHealth;
+            }
+        }
+
+        public override void Start()
+        {
+            base.Start();
 
             this.CurrentHealth = this.TotalHealth;
 
@@ -33,14 +43,14 @@ namespace Assets.Scripts.Components
         private void RegisterEventHandler()
         {
             this.Messenger.Register<ReceiveHealingMessage>(this, this.OnReceiveHealing);
-            this.Messenger.Register<TakeDamageMessage>(this, this.OnTakeDamage);
+            this.Messenger.Register<DealDamageMessage>(this, this.OnTakeDamage);
             this.Messenger.Register<IsAliveMessage>(this, this.OnIsAlive);
         }
 
         private void UnregisterEventHandler()
         {
             this.Messenger.Unregister<ReceiveHealingMessage>(this.OnReceiveHealing);
-            this.Messenger.Unregister<TakeDamageMessage>(this.OnTakeDamage);
+            this.Messenger.Unregister<DealDamageMessage>(this.OnTakeDamage);
             this.Messenger.Unregister<IsAliveMessage>(this.OnIsAlive);
         }
 
@@ -49,15 +59,15 @@ namespace Assets.Scripts.Components
             message.IsAlive = this.IsAlive;
         }
 
-        private void OnTakeDamage(TakeDamageMessage message)
+        private void OnTakeDamage(DealDamageMessage message)
         {
             var damageMessage = new ModifyIncomingDamageMessage(message.Damage);
             this.Messenger.Send(damageMessage);
 
-            this.TakeDamage(message.Sender, damageMessage.Damage);
+            this.TakeDamage(damageMessage.Damage);
         }
 
-        private void TakeDamage(BaseUnit attacker, int amount)
+        private void TakeDamage(int amount)
         {
             if (!this.IsAlive)
             {
@@ -70,16 +80,13 @@ namespace Assets.Scripts.Components
 
             if (this.CurrentHealth <= 0)
             {
-                this.UnitDied(attacker);
+                this.UnitDied();
             }
         }
 
-        private void UnitDied(BaseUnit attacker)
+        private void UnitDied()
         {
-            attacker.Messenger.Send(new UnitDiedMessage(this.Unit));
-
-            Log("{0} - {1} died to {2}", DateTime.Now.TimeOfDay, this, attacker);
-
+            Log("{0} - {1} died", DateTime.Now.TimeOfDay, this);
             Destroy(this.gameObject);
         }
 

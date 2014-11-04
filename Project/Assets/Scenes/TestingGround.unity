@@ -74,6 +74,140 @@ NavMeshSettings:
     widthInaccuracy: 16.666666
     heightInaccuracy: 10
   m_NavMesh: {fileID: 0}
+--- !u!1 &477652526
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 477652533}
+  - 33: {fileID: 477652532}
+  - 136: {fileID: 477652531}
+  - 23: {fileID: 477652530}
+  - 54: {fileID: 477652529}
+  - 114: {fileID: 477652528}
+  - 114: {fileID: 477652527}
+  m_Layer: 0
+  m_Name: Capsule
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &477652527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 477652526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d4b5f765d8ab3a47a0c806f9b28a5ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dbg: 0
+  serializationData:
+    serializedObjects: []
+    serializedStrings:
+      keys:
+      - 'Property: System.Int32 TotalHealth'
+      values:
+      - 100
+  serializerType:
+    name: Assets.Plugins.Vexe.Runtime.Serialization.Serializers.FullSerializer.fsFullSerializer,
+      Assembly-CSharp-firstpass, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  id: d2a58cc7-9574-4bc8-8773-7f57cf10e971
+--- !u!114 &477652528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 477652526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cae359e23d7e184196bcc049c0952ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dbg: 0
+  serializationData:
+    serializedObjects: []
+    serializedStrings:
+      keys:
+      - 'Property: Assets.Scripts.Common.TeamEnum Team'
+      values:
+      - '"Team1"'
+  serializerType:
+    name: Assets.Plugins.Vexe.Runtime.Serialization.Serializers.FullSerializer.fsFullSerializer,
+      Assembly-CSharp-firstpass, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  id: 32d01acf-c35b-424c-b13f-f837c372c161
+--- !u!54 &477652529
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 477652526}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!23 &477652530
+Renderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 477652526}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_LightmapIndex: 255
+  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
+  m_Materials:
+  - {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_LightProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+--- !u!136 &477652531
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 477652526}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: .5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!33 &477652532
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 477652526}
+  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &477652533
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 477652526}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.57189989, y: 1.852, z: -4.05030012}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
 --- !u!1 &749730918
 GameObject:
   m_ObjectHideFlags: 0
@@ -152,45 +286,43 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 749730918}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: .555679977, z: -8.04769993}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: .116953552, y: .209082738, z: -.0251949038, w: .970552206}
+  m_LocalPosition: {x: -1.39219999, y: 2.72040009, z: -9.28800011}
+  m_LocalScale: {x: 1, y: 1, z: 1.02353525}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!1 &1387138141
+--- !u!1 &846251101
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 1387138149}
-  - 33: {fileID: 1387138148}
-  - 65: {fileID: 1387138147}
-  - 23: {fileID: 1387138146}
-  - 54: {fileID: 1387138150}
-  - 114: {fileID: 1387138151}
-  - 114: {fileID: 1387138145}
-  - 114: {fileID: 1387138144}
-  - 114: {fileID: 1387138143}
-  - 114: {fileID: 1387138142}
+  - 4: {fileID: 846251109}
+  - 33: {fileID: 846251108}
+  - 65: {fileID: 846251107}
+  - 23: {fileID: 846251106}
+  - 114: {fileID: 846251105}
+  - 114: {fileID: 846251104}
+  - 114: {fileID: 846251103}
+  - 114: {fileID: 846251102}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Cube2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1387138142
+--- !u!114 &846251102
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1387138141}
+  m_GameObject: {fileID: 846251101}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 295f9167eeaf4d8498f4db3dea86e6b3, type: 3}
+  m_Script: {fileID: 11500000, guid: de9419cec7ff1ad4e916146b9ebc3f2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   dbg: 0
@@ -198,19 +330,23 @@ MonoBehaviour:
     serializedObjects: []
     serializedStrings:
       keys:
-      - 'Property: Assets.Scripts.Common.TeamEnum Team'
+      - 'Property: System.Int32 AttackRange'
+      - 'Property: System.Int32 AttackDamage'
+      - 'Property: Assets.Scripts.Components.TargetComponent TargetComponent'
       values:
-      - '"Team1"'
+      - 100
+      - 20
+      - '{"Filters":[{"Unit":null,"$type":"Assets.Scripts.Components.TargetFilter.EnemyFilter"}]}'
   serializerType:
     name: Assets.Plugins.Vexe.Runtime.Serialization.Serializers.FullSerializer.fsFullSerializer,
       Assembly-CSharp-firstpass, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  id: 3697b110-915d-4cac-a3ac-205c3eb54b09
---- !u!114 &1387138143
+  id: e1974802-295c-49a7-acc7-71d05b7ca560
+--- !u!114 &846251103
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1387138141}
+  m_GameObject: {fileID: 846251101}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a01d19e69c3932145a047049991c3672, type: 3}
@@ -227,38 +363,13 @@ MonoBehaviour:
   serializerType:
     name: Assets.Plugins.Vexe.Runtime.Serialization.Serializers.FullSerializer.fsFullSerializer,
       Assembly-CSharp-firstpass, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  id: f58aed00-af76-475b-a3a4-7964e2632ef7
---- !u!114 &1387138144
+  id: 264ccc6f-db37-4e4b-bd26-281da1949d41
+--- !u!114 &846251104
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1387138141}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de9419cec7ff1ad4e916146b9ebc3f2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dbg: 0
-  serializationData:
-    serializedObjects: []
-    serializedStrings:
-      keys:
-      - 'Property: System.Int32 AttackRange'
-      - 'Property: System.Int32 AttackDamage'
-      values:
-      - 100
-      - 10
-  serializerType:
-    name: Assets.Plugins.Vexe.Runtime.Serialization.Serializers.FullSerializer.fsFullSerializer,
-      Assembly-CSharp-firstpass, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  id: 62a16138-1e4b-4dd9-a3b2-c486c4888d3d
---- !u!114 &1387138145
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1387138141}
+  m_GameObject: {fileID: 846251101}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6d4b5f765d8ab3a47a0c806f9b28a5ac, type: 3}
@@ -275,13 +386,36 @@ MonoBehaviour:
   serializerType:
     name: Assets.Plugins.Vexe.Runtime.Serialization.Serializers.FullSerializer.fsFullSerializer,
       Assembly-CSharp-firstpass, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  id: 9e94a819-bfd3-4210-99be-29380afcdbbe
---- !u!23 &1387138146
+  id: c3aff13a-44f1-448f-a235-0809ad5db0a3
+--- !u!114 &846251105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 846251101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cae359e23d7e184196bcc049c0952ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dbg: 0
+  serializationData:
+    serializedObjects: []
+    serializedStrings:
+      keys:
+      - 'Property: Assets.Scripts.Common.TeamEnum Team'
+      values:
+      - '"Team2"'
+  serializerType:
+    name: Assets.Plugins.Vexe.Runtime.Serialization.Serializers.FullSerializer.fsFullSerializer,
+      Assembly-CSharp-firstpass, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  id: 88867694-50b4-4545-a39b-2f1a7cfccff6
+--- !u!23 &846251106
 Renderer:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1387138141}
+  m_GameObject: {fileID: 846251101}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -296,58 +430,162 @@ Renderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
   m_SortingOrder: 0
---- !u!65 &1387138147
+--- !u!65 &846251107
 BoxCollider:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1387138141}
+  m_GameObject: {fileID: 846251101}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!33 &1387138148
+--- !u!33 &846251108
 MeshFilter:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1387138141}
+  m_GameObject: {fileID: 846251101}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &1387138149
+--- !u!4 &846251109
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1387138141}
+  m_GameObject: {fileID: 846251101}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.68970001, y: -.347490013, z: -1.1164}
+  m_LocalPosition: {x: -.725120008, y: 1.852, z: -7.7112999}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+--- !u!1 &1272590447
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1272590451}
+  - 33: {fileID: 1272590450}
+  - 65: {fileID: 1272590449}
+  - 23: {fileID: 1272590448}
+  - 114: {fileID: 1272590454}
+  - 114: {fileID: 1272590453}
+  - 114: {fileID: 1272590452}
+  - 114: {fileID: 1272590455}
+  m_Layer: 0
+  m_Name: Cube1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!23 &1272590448
+Renderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1272590447}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_LightmapIndex: 255
+  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
+  m_Materials:
+  - {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_LightProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+--- !u!65 &1272590449
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1272590447}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!33 &1272590450
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1272590447}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1272590451
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1272590447}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -.725120008, y: 1.852, z: -5.14459991}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
---- !u!54 &1387138150
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1387138141}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: .0500000007
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!114 &1387138151
+--- !u!114 &1272590452
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1387138141}
+  m_GameObject: {fileID: 1272590447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a01d19e69c3932145a047049991c3672, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dbg: 0
+  serializationData:
+    serializedObjects: []
+    serializedStrings:
+      keys:
+      - 'Property: System.Int32 SightRadius'
+      values:
+      - 1000
+  serializerType:
+    name: Assets.Plugins.Vexe.Runtime.Serialization.Serializers.FullSerializer.fsFullSerializer,
+      Assembly-CSharp-firstpass, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  id: 264ccc6f-db37-4e4b-bd26-281da1949d41
+--- !u!114 &1272590453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1272590447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d4b5f765d8ab3a47a0c806f9b28a5ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dbg: 0
+  serializationData:
+    serializedObjects: []
+    serializedStrings:
+      keys:
+      - 'Property: System.Int32 TotalHealth'
+      values:
+      - 100
+  serializerType:
+    name: Assets.Plugins.Vexe.Runtime.Serialization.Serializers.FullSerializer.fsFullSerializer,
+      Assembly-CSharp-firstpass, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  id: c3aff13a-44f1-448f-a235-0809ad5db0a3
+--- !u!114 &1272590454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1272590447}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5cae359e23d7e184196bcc049c0952ae, type: 3}
@@ -357,27 +595,55 @@ MonoBehaviour:
   serializationData:
     serializedObjects: []
     serializedStrings:
-      keys: []
-      values: []
+      keys:
+      - 'Property: Assets.Scripts.Common.TeamEnum Team'
+      values:
+      - '"Team2"'
   serializerType:
     name: Assets.Plugins.Vexe.Runtime.Serialization.Serializers.FullSerializer.fsFullSerializer,
       Assembly-CSharp-firstpass, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  id: f7e34112-cbd4-4aad-becd-9805293d7b83
---- !u!1 &2128609516
+  id: 88867694-50b4-4545-a39b-2f1a7cfccff6
+--- !u!114 &1272590455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1272590447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de9419cec7ff1ad4e916146b9ebc3f2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dbg: 0
+  serializationData:
+    serializedObjects: []
+    serializedStrings:
+      keys:
+      - 'Property: System.Int32 AttackRange'
+      - 'Property: System.Int32 AttackDamage'
+      - 'Property: Assets.Scripts.Components.TargetComponent TargetComponent'
+      values:
+      - 100
+      - 20
+      - '{"Filters":[{"Unit":null,"$type":"Assets.Scripts.Components.TargetFilter.EnemyFilter"}]}'
+  serializerType:
+    name: Assets.Plugins.Vexe.Runtime.Serialization.Serializers.FullSerializer.fsFullSerializer,
+      Assembly-CSharp-firstpass, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  id: e1974802-295c-49a7-acc7-71d05b7ca560
+--- !u!1 &1446926800
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 2128609523}
-  - 33: {fileID: 2128609522}
-  - 135: {fileID: 2128609521}
-  - 23: {fileID: 2128609520}
-  - 54: {fileID: 2128609524}
-  - 114: {fileID: 2128609519}
-  - 114: {fileID: 2128609518}
-  - 114: {fileID: 2128609517}
+  - 4: {fileID: 1446926807}
+  - 33: {fileID: 1446926806}
+  - 135: {fileID: 1446926805}
+  - 23: {fileID: 1446926804}
+  - 54: {fileID: 1446926803}
+  - 114: {fileID: 1446926802}
+  - 114: {fileID: 1446926801}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -385,15 +651,38 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2128609517
+--- !u!114 &1446926801
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2128609516}
+  m_GameObject: {fileID: 1446926800}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 295f9167eeaf4d8498f4db3dea86e6b3, type: 3}
+  m_Script: {fileID: 11500000, guid: 6d4b5f765d8ab3a47a0c806f9b28a5ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dbg: 0
+  serializationData:
+    serializedObjects: []
+    serializedStrings:
+      keys:
+      - 'Property: System.Int32 TotalHealth'
+      values:
+      - 100
+  serializerType:
+    name: Assets.Plugins.Vexe.Runtime.Serialization.Serializers.FullSerializer.fsFullSerializer,
+      Assembly-CSharp-firstpass, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  id: cced236d-9d2e-42cf-8e80-85b944bf2d63
+--- !u!114 &1446926802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1446926800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cae359e23d7e184196bcc049c0952ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   dbg: 0
@@ -407,57 +696,28 @@ MonoBehaviour:
   serializerType:
     name: Assets.Plugins.Vexe.Runtime.Serialization.Serializers.FullSerializer.fsFullSerializer,
       Assembly-CSharp-firstpass, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  id: 82349b01-c5a4-4a26-a0d3-48658e9a6f50
---- !u!114 &2128609518
-MonoBehaviour:
+  id: 90970869-b83a-48dc-9d94-af491355b5a2
+--- !u!54 &1446926803
+Rigidbody:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2128609516}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d4b5f765d8ab3a47a0c806f9b28a5ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dbg: 0
-  serializationData:
-    serializedObjects: []
-    serializedStrings:
-      keys:
-      - 'Property: System.Int32 TotalHealth'
-      values:
-      - 100
-  serializerType:
-    name: Assets.Plugins.Vexe.Runtime.Serialization.Serializers.FullSerializer.fsFullSerializer,
-      Assembly-CSharp-firstpass, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  id: 71f14620-c489-441b-94b6-96efeb19e2d4
---- !u!114 &2128609519
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2128609516}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5cae359e23d7e184196bcc049c0952ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dbg: 0
-  serializationData:
-    serializedObjects: []
-    serializedStrings:
-      keys: []
-      values: []
-  serializerType:
-    name: Assets.Plugins.Vexe.Runtime.Serialization.Serializers.FullSerializer.fsFullSerializer,
-      Assembly-CSharp-firstpass, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  id: 4205dcb4-e3b5-4f78-a8fb-d614de024898
---- !u!23 &2128609520
+  m_GameObject: {fileID: 1446926800}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!23 &1446926804
 Renderer:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2128609516}
+  m_GameObject: {fileID: 1446926800}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -472,49 +732,34 @@ Renderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
   m_SortingOrder: 0
---- !u!135 &2128609521
+--- !u!135 &1446926805
 SphereCollider:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2128609516}
+  m_GameObject: {fileID: 1446926800}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: .5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!33 &2128609522
+--- !u!33 &1446926806
 MeshFilter:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2128609516}
+  m_GameObject: {fileID: 1446926800}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &2128609523
+--- !u!4 &1446926807
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2128609516}
+  m_GameObject: {fileID: 1446926800}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .550480008, y: -.27888, z: -1.60510004}
+  m_LocalPosition: {x: 1.54449999, y: 1.89540005, z: -7.3190999}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
---- !u!54 &2128609524
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2128609516}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: .0500000007
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  m_RootOrder: 3
