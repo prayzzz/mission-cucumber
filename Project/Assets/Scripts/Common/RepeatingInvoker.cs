@@ -22,6 +22,14 @@ namespace Assets.Scripts.Common
 
         public bool IsRunning { get; private set; }
 
+        public float Progress
+        {
+            get
+            {
+                return currentTime / maxTime;
+            }
+        }
+
         public void Start()
         {
             this.currentTime = 0;

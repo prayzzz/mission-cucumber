@@ -4,6 +4,7 @@ using System.Linq;
 
 using Assets.Plugins.Vexe.Runtime.Types.Attributes.User.Categories;
 using Assets.Plugins.Vexe.Runtime.Types.Attributes.User.Constraints;
+using Assets.Plugins.Vexe.Runtime.Types.Attributes.User.Decorates;
 using Assets.Scripts.BaseClasses;
 using Assets.Scripts.Common;
 using Assets.Scripts.Messages;
@@ -15,6 +16,8 @@ namespace Assets.Scripts.Components
     {
         private BaseUnit target;
 
+        private RepeatingInvoker invoker;
+
         [Min(0)]
         public int AttackRange { get; set; }
 
@@ -22,6 +25,7 @@ namespace Assets.Scripts.Components
         public int AttackDamage { get; set; }
 
         [Min(0)]
+        [Comment("In Sekunden")]
         public float AttackSpeed { get; set; }
 
         public TargetComponent TargetComponent { get; set; }
@@ -31,6 +35,7 @@ namespace Assets.Scripts.Components
             base.Awake();
 
             this.TargetComponent = new TargetComponent(this.Unit, this.OnNewTargets);
+            this.invoker = new RepeatingInvoker(AttackSpeed * 1000, this.Attack);
         }
 
         public override void Start()
@@ -66,9 +71,9 @@ namespace Assets.Scripts.Components
 
             // New target
             this.target = newTarget;
-            if (!this.IsInvoking("Attack"))
+            if (!this.invoker.IsRunning)
             {
-                this.InvokeRepeating("Attack", this.AttackSpeed, this.AttackSpeed);
+                this.invoker.Start();
             }
         }
 
@@ -83,7 +88,7 @@ namespace Assets.Scripts.Components
         private void ClearTarget()
         {
             this.target = null;
-            this.CancelInvoke("Attack");
+            this.invoker.Stop();
         }
 
         [UsedImplicitly]
