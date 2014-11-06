@@ -207,7 +207,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
 --- !u!1 &749730918
 GameObject:
   m_ObjectHideFlags: 0
@@ -332,10 +332,12 @@ MonoBehaviour:
       keys:
       - 'Property: System.Int32 AttackRange'
       - 'Property: System.Int32 AttackDamage'
+      - 'Property: System.Single AttackSpeed'
       - 'Property: Assets.Scripts.Components.TargetComponent TargetComponent'
       values:
       - 100
       - 20
+      - 1
       - '{"Filters":[{"Unit":null,"$type":"Assets.Scripts.Components.TargetFilter.EnemyFilter"}]}'
   serializerType:
     name: Assets.Plugins.Vexe.Runtime.Serialization.Serializers.FullSerializer.fsFullSerializer,
@@ -460,7 +462,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
 --- !u!1 &938871598
 GameObject:
   m_ObjectHideFlags: 0
@@ -499,176 +501,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
---- !u!1 &1272590447
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1272590451}
-  - 33: {fileID: 1272590450}
-  - 65: {fileID: 1272590449}
-  - 23: {fileID: 1272590448}
-  - 114: {fileID: 1272590454}
-  - 114: {fileID: 1272590453}
-  - 114: {fileID: 1272590452}
-  - 114: {fileID: 1272590455}
-  m_Layer: 0
-  m_Name: Cube1
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!23 &1272590448
-Renderer:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1272590447}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_LightmapIndex: 255
-  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
-  m_Materials:
-  - {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
-  m_SubsetIndices: 
-  m_StaticBatchRoot: {fileID: 0}
-  m_UseLightProbes: 0
-  m_LightProbeAnchor: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
---- !u!65 &1272590449
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1272590447}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!33 &1272590450
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1272590447}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &1272590451
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1272590447}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.725120008, y: 1.852, z: -5.14459991}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
---- !u!114 &1272590452
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1272590447}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a01d19e69c3932145a047049991c3672, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dbg: 0
-  serializationData:
-    serializedObjects: []
-    serializedStrings:
-      keys:
-      - 'Property: System.Int32 SightRadius'
-      values:
-      - 1000
-  serializerType:
-    name: Assets.Plugins.Vexe.Runtime.Serialization.Serializers.FullSerializer.fsFullSerializer,
-      Assembly-CSharp-firstpass, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  id: 264ccc6f-db37-4e4b-bd26-281da1949d41
---- !u!114 &1272590453
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1272590447}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d4b5f765d8ab3a47a0c806f9b28a5ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dbg: 0
-  serializationData:
-    serializedObjects: []
-    serializedStrings:
-      keys:
-      - 'Property: System.Int32 TotalHealth'
-      values:
-      - 100
-  serializerType:
-    name: Assets.Plugins.Vexe.Runtime.Serialization.Serializers.FullSerializer.fsFullSerializer,
-      Assembly-CSharp-firstpass, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  id: c3aff13a-44f1-448f-a235-0809ad5db0a3
---- !u!114 &1272590454
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1272590447}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5cae359e23d7e184196bcc049c0952ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dbg: 0
-  serializationData:
-    serializedObjects: []
-    serializedStrings:
-      keys:
-      - 'Property: Assets.Scripts.Common.TeamEnum Team'
-      values:
-      - '"Team2"'
-  serializerType:
-    name: Assets.Plugins.Vexe.Runtime.Serialization.Serializers.FullSerializer.fsFullSerializer,
-      Assembly-CSharp-firstpass, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  id: 88867694-50b4-4545-a39b-2f1a7cfccff6
---- !u!114 &1272590455
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1272590447}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de9419cec7ff1ad4e916146b9ebc3f2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dbg: 0
-  serializationData:
-    serializedObjects: []
-    serializedStrings:
-      keys:
-      - 'Property: System.Int32 AttackRange'
-      - 'Property: System.Int32 AttackDamage'
-      - 'Property: Assets.Scripts.Components.TargetComponent TargetComponent'
-      values:
-      - 100
-      - 20
-      - '{"Filters":[{"Unit":null,"$type":"Assets.Scripts.Components.TargetFilter.EnemyFilter"}]}'
-  serializerType:
-    name: Assets.Plugins.Vexe.Runtime.Serialization.Serializers.FullSerializer.fsFullSerializer,
-      Assembly-CSharp-firstpass, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  id: e1974802-295c-49a7-acc7-71d05b7ca560
+  m_RootOrder: 4
 --- !u!1 &1446926800
 GameObject:
   m_ObjectHideFlags: 0
@@ -801,4 +634,4 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2

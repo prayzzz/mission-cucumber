@@ -16,7 +16,7 @@ namespace Assets.Scripts.Components
     {
         private BaseUnit target;
 
-        private RepeatingInvoker invoker;
+        private RepeatingInvoker attackInvoker;
 
         [Min(0)]
         public int AttackRange { get; set; }
@@ -35,7 +35,7 @@ namespace Assets.Scripts.Components
             base.Awake();
 
             this.TargetComponent = new TargetComponent(this.Unit, this.OnNewTargets);
-            this.invoker = new RepeatingInvoker(AttackSpeed * 1000, this.Attack);
+            this.attackInvoker = new RepeatingInvoker(this.AttackSpeed, this.Attack);
         }
 
         public override void Start()
@@ -44,6 +44,11 @@ namespace Assets.Scripts.Components
 
             this.TargetComponent.Start();
             this.RegisterEventHandler();
+        }
+
+        public void Update()
+        {
+            this.attackInvoker.Update();
         }
 
         private void OnNewTargets(IEnumerable<BaseUnit> targets)
@@ -71,9 +76,9 @@ namespace Assets.Scripts.Components
 
             // New target
             this.target = newTarget;
-            if (!this.invoker.IsRunning)
+            if (!this.attackInvoker.IsRunning)
             {
-                this.invoker.Start();
+                this.attackInvoker.Start();
             }
         }
 
@@ -88,7 +93,7 @@ namespace Assets.Scripts.Components
         private void ClearTarget()
         {
             this.target = null;
-            this.invoker.Stop();
+            this.attackInvoker.Stop();
         }
 
         [UsedImplicitly]

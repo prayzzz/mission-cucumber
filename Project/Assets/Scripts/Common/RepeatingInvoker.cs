@@ -4,14 +4,14 @@ using UnityEngine;
 
 namespace Assets.Scripts.Common
 {
-    public class RepeatingInvoker : ScriptableObject
+    public class RepeatingInvoker
     {
-        private float maxTime;
+        private readonly float maxTime;
+
+        private readonly Action actionToInvoke;
 
         private float currentTime;
 
-        private Action actionToInvoke;
-        
         public RepeatingInvoker(float interval, Action actionToInvoke)
         {
             this.currentTime = 0;
@@ -26,7 +26,7 @@ namespace Assets.Scripts.Common
         {
             get
             {
-                return currentTime / maxTime;
+                return this.currentTime / this.maxTime;
             }
         }
 
